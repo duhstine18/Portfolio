@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justine Kim Largo | Backend Developer</title>
+  <style>
+    /* --- GLOBAL STYLES --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #7dd3fc;
+    }
+
+    /* --- HEADER --- */
+    header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #38bdf8;
+      text-align: center;
+      padding: 80px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 600;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    /* --- SECTIONS --- */
+    section {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      color: #38bdf8;
+      border-left: 5px solid #38bdf8;
+      padding-left: 12px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    /* --- ABOUT --- */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .about img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #38bdf8;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+      transition: transform 0.3s;
+    }
+
+    .about img:hover {
+      transform: scale(1.05);
+    }
+
+    .about p {
+      flex: 1;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+    }
+
+    /* --- SKILLS --- */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .skill {
+      background: #334155;
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .skill:hover {
+      background: #38bdf8;
+      color: #0f172a;
+      transform: translateY(-5px);
+      font-weight: 600;
+    }
+
+    /* --- PROJECTS --- */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .project {
+      background: #334155;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(56, 189, 248, 0.3);
+    }
+
+    .project h3 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .project p {
+      color: #cbd5e1;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .project a {
+      display: inline-block;
+      padding: 8px 15px;
+      background: #38bdf8;
+      color: #0f172a;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .project a:hover {
+      background: #7dd3fc;
+    }
+
+    /* --- CONTACT --- */
+    .contact p {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #1e293b;
+      color: #94a3b8;
+      margin-top: 60px;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .about {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about img {
+        margin-bottom: 10px;
+      }
+
+      section {
+        margin: 25px 15px;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>Justine Kim Largo</h1>
+    <p>Aspiring Backend Developer | PHP | MySQL | JavaScript</p>
+  </header>
+
+  <!-- ABOUT SECTION -->
+  <section>
+    <h2>About Me</h2>
+    <div class="about">
+      <img src="profile.jpg" alt="Justine Kim Largo">
+      <p>
+        Hi! I'm <strong>Justine Kim Largo</strong>, a student and aspiring backend developer from Cebu City.
+        I’m passionate about building the logic, databases, and systems that power web applications.
+        I’m currently learning and improving my skills in <strong>PHP, MySQL, HTML, CSS,</strong> and <strong>JavaScript</strong>
+        as I work toward becoming a professional backend developer who creates efficient and reliable web solutions.
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section>
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="skill">PHP</div>
+      <div class="skill">MySQL</div>
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section>
+    <h2>Projects</h2>
+    <div class="projects">
+
+      <div class="project">
+        <h3>RACO’S</h3>
+        <p>A car rental management system built using PHP and MySQL. It includes admin and user roles, booking features, and an organized dashboard for managing vehicles and reservations.</p>
+        <a href="https://github.com/duhstine18/RACOS.git">View Project</a>
+      </div>
+
+      <div class="project">
+        <h3>STACK ME UP</h3>
+        <p>A fun stacking game created using JavaScript and HTML Canvas. It challenges users to stack moving blocks precisely to score points — featuring simple animations and smooth logic.</p>
+        <a href="https://github.com/duhstine18/STACK-ME-UP.git">View Project</a>
+      </div>
+
+      <div class="project">
+        <h3>SHADOW OF THE RIFT</h3>
+        <p>A 2D adventure game made in Python with Pygame. Focused on gameplay logic, collision detection, and event handling for a dynamic and interactive experience.</p>
+        <a href="https://github.com/duhstine18/ShadowOfTheRift.git">View Project</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:justinelargo8@gmail.com">justinelargo8@gmail.com</a></p>
+    <p>Location: Salvador EXT. Labangon, Cebu City</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Justine Kim Largo | Aspiring Backend Developer</p>
+  </footer>
+
+</body>
+</html>
