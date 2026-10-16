@@ -149,3 +149,20 @@
 .card-foot {
   z-index: 3;
 }
+
+/* PERSONAL PROJECT CONTRIBUTIONS */
+
+.project-content .project-contribution {
+  margin-top: 12px;
+  padding: 13px 15px;
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 10px 10px 0;
+  background: rgba(119, 229, 236, 0.06);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.project-contribution strong {
+  color: var(--cyan);
+}
