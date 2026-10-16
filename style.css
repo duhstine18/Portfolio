@@ -484,3 +484,13 @@
   .alerto-art-title { font-size: 30px; }
   .alerto-art-subtitle { font-size: 9px; }
 }
+
+/* ALERTO DEVELOPMENT STATUS */
+
+.alerto-unavailable {
+  margin-top: 20px;
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
