@@ -737,3 +737,16 @@
     height: 245px;
   }
 }
+.project-art.project-art-three {
+  height: 280px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.project-art.project-art-three img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
