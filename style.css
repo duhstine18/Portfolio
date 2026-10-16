@@ -548,3 +548,103 @@
     height: 245px;
   }
 }
+
+/* =====================================
+   RACO'S - REAL CAR IMAGE PREVIEW
+===================================== */
+
+.project-art-one {
+  height: 280px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.racos-preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.10),
+      rgba(0, 0, 0, 0.22)
+    ),
+    url("images/racos-car.png");
+
+  background-size: cover;
+  background-position: center;
+  transition: background-size 0.4s ease;
+}
+
+.racos-preview-navbar {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 15px;
+
+  background: #1c2027;
+  color: #ffffff;
+}
+
+.racos-preview-navbar strong {
+  margin-right: auto;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.racos-preview-navbar span {
+  font-size: 9px;
+  color: #f3f3f3;
+}
+
+.racos-preview-content {
+  position: absolute;
+  inset: 45px 0 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 20px;
+}
+
+.racos-preview-content h3 {
+  margin: 0 0 15px;
+  font-size: 19px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: 1px;
+
+  text-shadow: 0 2px 12px rgba(0,0,0,.65);
+}
+
+.racos-preview-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.racos-preview-buttons span {
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: rgba(255,255,255,.9);
+  color: #1c2027;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.racos-preview-buttons span:last-child {
+  background: #1c2027;
+  color: white;
+}
+
+@media (max-width: 760px) {
+  .project-art-one {
+    height: 245px;
+  }
+}
