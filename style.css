@@ -1,30 +1,31 @@
 
-/* =========================================
-   JUSTINE KIM LARGO PORTFOLIO
-   CINEMATIC BLACK AND WHITE DESIGN
-========================================= */
+/* ==========================================
+   JUSTINE KIM LARGO
+   CINEMATIC BLACK & WHITE PORTFOLIO
+========================================== */
 
 :root {
   --black: #080808;
   --white: #f7f7f7;
   --muted: #bcbcbc;
-  --font: "DM Sans", Arial, sans-serif;
-  --display: "Barlow Condensed", Arial, sans-serif;
+  --font: "DM Sans", sans-serif;
+  --display: "Barlow Condensed", sans-serif;
 }
 
 /* RESET */
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px;
+  scroll-padding-top: 75px;
 }
 
 body {
-  margin: 0;
   background: var(--black);
   color: white;
   font: 400 14px/1.7 var(--font);
@@ -36,71 +37,75 @@ a {
   text-decoration: none;
 }
 
-button {
-  font: inherit;
-}
-
 img {
   display: block;
   max-width: 100%;
 }
 
-button,
-a {
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+a,
+button {
   -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: 5px;
+  outline-offset: 4px;
 }
 
-/* =========================================
+/* ==========================================
    HEADER
-========================================= */
+========================================== */
 
 .header {
   position: absolute;
-  z-index: 20;
   top: 0;
   left: 0;
   width: 100%;
   height: 86px;
-  padding: 0 max(5vw, 22px);
+
+  z-index: 30;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 26px;
+  padding: 0 max(5vw, 22px);
 }
 
 .logo {
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
   white-space: nowrap;
 }
 
 .logo span {
-  color: #aaa;
+  color: #999;
 }
 
 .nav {
+  margin-left: auto;
+
   display: flex;
   align-items: center;
   gap: 33px;
-  margin-left: auto;
 }
 
 .nav a {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .1em;
-  transition: opacity .25s ease;
+  letter-spacing: 0.1em;
+  transition: opacity 0.3s ease;
 }
 
 .nav a:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .header-button,
@@ -112,22 +117,25 @@ a {
   min-height: 45px;
   padding: 0 22px;
 
-  border: 1px solid rgba(255,255,255,.68);
+  color: white;
+  background: transparent;
+
+  border: 1px solid rgba(255,255,255,0.7);
 
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .13em;
+  letter-spacing: 0.13em;
 
   transition:
-    background .3s ease,
-    color .3s ease,
-    transform .3s ease;
+    color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .header-button:hover,
 .outline-button:hover {
-  background: white;
-  color: #111;
+  color: #080808;
+  background: #fff;
   transform: translateY(-2px);
 }
 
@@ -135,59 +143,67 @@ a {
   display: none;
 }
 
-/* =========================================
-   HERO
-========================================= */
+/* ==========================================
+   HERO ANIMATION
+========================================== */
 
 .hero-scroll {
-  height: 215vh;
   position: relative;
+  height: 215vh;
 }
 
 .hero-sticky {
   position: sticky;
   top: 0;
 
+  width: 100%;
   height: 100svh;
   min-height: 560px;
 
   overflow: hidden;
   background: #060606;
+
   isolation: isolate;
 }
+
+/* CANVAS FIX */
 
 #portrait-sequence {
   position: absolute;
   inset: 0;
 
+  display: block;
   width: 100%;
   height: 100%;
 
-  z-index: -3;
-  display: block;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero-shade {
   position: absolute;
   inset: 0;
-  z-index: -2;
+
+  z-index: 1;
+  pointer-events: none;
 
   background: linear-gradient(
     90deg,
     #060606 0%,
-    rgba(6,6,6,.98) 17%,
-    rgba(6,6,6,.75) 38%,
-    rgba(6,6,6,.15) 72%,
-    rgba(6,6,6,.20) 100%
+    rgba(6,6,6,0.98) 17%,
+    rgba(6,6,6,0.75) 38%,
+    rgba(6,6,6,0.15) 72%,
+    rgba(6,6,6,0.20) 100%
   );
 }
 
 .hero-content {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
 
-  left: max(6vw, 26px);
+  left: max(6vw,26px);
   top: 50%;
+
   transform: translateY(-47%);
 
   max-width: 530px;
@@ -196,8 +212,9 @@ a {
 .eyebrow {
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: .16em;
-  margin: 0 0 17px;
+  letter-spacing: 0.16em;
+
+  margin-bottom: 17px;
 }
 
 .eyebrow span {
@@ -211,10 +228,11 @@ a {
   font-family: var(--display);
   font-size: clamp(62px,7.1vw,125px);
   font-weight: 800;
-  line-height: .85;
-  letter-spacing: -.015em;
 
-  margin: 0 0 23px;
+  line-height: 0.85;
+  letter-spacing: -0.015em;
+
+  margin-bottom: 23px;
 }
 
 .hero-summary {
@@ -224,11 +242,13 @@ a {
   font-size: 13px;
   line-height: 1.95;
 
-  margin: 0 0 26px;
+  margin-bottom: 26px;
 }
 
 .hero-bottom {
   position: absolute;
+  z-index: 2;
+
   left: max(6vw,26px);
   right: max(6vw,26px);
   bottom: 35px;
@@ -238,32 +258,34 @@ a {
   gap: 20px;
 
   color: #bbb;
+
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
 }
 
-/* =========================================
+/* ==========================================
    SELECTED WORKS
-========================================= */
+========================================== */
 
 .section-inner {
   width: min(1250px,90%);
-  margin: auto;
+  margin-inline: auto;
 }
 
 .work-section {
   background: #f7f7f7;
   color: #080808;
+
   padding: 92px 0 115px;
 }
 
 .section-heading {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 30px;
 
+  gap: 30px;
   margin-bottom: 31px;
 }
 
@@ -275,22 +297,23 @@ a {
   font-family: var(--display);
   font-size: clamp(48px,5.4vw,84px);
   font-weight: 800;
-  line-height: .95;
-
-  margin: 0;
+  line-height: 0.95;
 }
 
 .subheading {
   color: #555;
+
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .14em;
+  letter-spacing: 0.14em;
+
   margin-bottom: 5px;
 }
 
 .work-grid {
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
+
   gap: 28px 20px;
 }
 
@@ -299,59 +322,76 @@ a {
   min-width: 0;
 }
 
-/* PROJECT IMAGE CARDS */
+/* ==========================================
+   PROJECT CARDS
+========================================== */
 
 .work-art {
   position: relative;
+
+  width: 100%;
+  aspect-ratio: 1.75;
+
   display: grid;
   place-items: center;
 
-  aspect-ratio: 1.75;
   overflow: hidden;
 
-  color: white;
-  background: #1a1a1a;
+  background: #111;
+  color: #fff;
+
+  isolation: isolate;
 }
+
+/* IMAGE OVERLAY */
 
 .work-art::after {
   content: "";
+
   position: absolute;
   inset: 0;
-  z-index: 1;
 
-  background: radial-gradient(
-    circle at center,
-    transparent 25%,
-    rgba(0,0,0,.55)
+  z-index: 2;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.15),
+    transparent 60%
   );
 
   pointer-events: none;
 }
 
-/* CINEMATIC MONOCHROME IMAGES */
+/* PROJECT IMAGES */
 
 .work-art img {
   position: absolute;
   inset: 0;
 
-  display: block;
+  z-index: 1;
+
   width: 100%;
   height: 100%;
 
   object-fit: cover;
   object-position: center;
 
+  display: block;
+
+  opacity: 1;
+  visibility: visible;
+
   filter:
     grayscale(100%)
     contrast(1.12)
-    brightness(.92);
+    brightness(0.92);
 
   transition:
-    transform .8s cubic-bezier(.22,1,.36,1),
-    filter .8s ease;
+    transform 0.8s cubic-bezier(.22,1,.36,1),
+    filter 0.8s ease;
 }
 
-/* HOVER REMAINS BLACK AND WHITE */
+/* HOVER REMAINS MONOCHROME */
 
 .work-item:hover .work-art img {
   transform: scale(1.045);
@@ -362,48 +402,55 @@ a {
     brightness(1);
 }
 
-.work-art.has-image .fallback-title {
-  display: none;
+/* FALLBACK TEXT */
+
+.fallback-title {
+  position: relative;
+  z-index: 0;
+
+  font-family: var(--display);
+  font-size: clamp(40px,5vw,85px);
+  font-weight: 800;
+  line-height: 0.9;
+
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
-.work-art.has-image::after {
+/* ORIGINAL IMAGE LOADED */
+
+.work-art.has-image .fallback-title {
+  visibility: hidden;
+}
+
+/* PROJECT BACKGROUNDS */
+
+.art-racos {
   background: linear-gradient(
-    to top,
-    rgba(0,0,0,.18),
-    transparent 55%
+    140deg,
+    #242424,
+    #050505 75%
   );
 }
 
-.fallback-title {
-  z-index: 2;
-
-  font-family: var(--display);
-  font-size: clamp(35px,5vw,85px);
-  font-weight: 800;
-  line-height: .85;
-  letter-spacing: .02em;
-  text-align: center;
-
-  transition: transform .6s ease;
-}
-
-.work-item:hover .fallback-title {
-  transform: scale(1.07);
-}
-
-/* INDIVIDUAL PROJECTS */
-
-.art-racos {
-  background: linear-gradient(140deg,#222,#050505 75%);
-}
-
 .art-rift {
-  background: linear-gradient(130deg,#111,#484848 48%,#090909);
+  background: linear-gradient(
+    130deg,
+    #111,
+    #484848 48%,
+    #090909
+  );
 }
 
 .art-alerto {
-  background: linear-gradient(130deg,#343434,#090909);
+  background: linear-gradient(
+    130deg,
+    #343434,
+    #090909
+  );
 }
+
+/* PROJECT TITLES */
 
 .work-meta {
   display: flex;
@@ -411,24 +458,25 @@ a {
   justify-content: space-between;
 
   gap: 10px;
-  padding: 11px 0 0;
+  padding-top: 11px;
 }
 
 .work-meta h3 {
-  margin: 0;
   font-size: 13px;
-  letter-spacing: .03em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .work-meta span {
   color: #666;
+
   font-size: 10px;
   text-align: right;
 }
 
-/* =========================================
-   STACK ME UP PREVIEW
-========================================= */
+/* ==========================================
+   STACK ME UP — ANIMATED PREVIEW
+========================================== */
 
 .art-stack {
   background: #0b0b0b;
@@ -444,6 +492,7 @@ a {
 
   width: 100%;
   height: 100%;
+
   overflow: hidden;
 
   background: radial-gradient(
@@ -456,10 +505,11 @@ a {
 
 .stack-preview::before {
   content: "";
+
   position: absolute;
   inset: 0;
 
-  opacity: .12;
+  opacity: 0.12;
 
   background-image:
     linear-gradient(#fff 1px,transparent 1px),
@@ -470,6 +520,7 @@ a {
 
 .game-top {
   position: absolute;
+
   top: 7%;
   left: 7%;
   right: 7%;
@@ -478,15 +529,16 @@ a {
   justify-content: space-between;
   gap: 10px;
 
-  font-size: clamp(8px,.85vw,12px);
-  font-weight: 700;
-  letter-spacing: .16em;
-
   color: #dedede;
+
+  font-size: clamp(8px,0.85vw,12px);
+  font-weight: 700;
+  letter-spacing: 0.16em;
 }
 
 .game-score {
   position: absolute;
+
   top: 14%;
   left: 0;
   right: 0;
@@ -497,7 +549,7 @@ a {
   font-size: clamp(38px,5vw,80px);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .stack-scene {
@@ -507,6 +559,7 @@ a {
 
 .block-tower {
   position: absolute;
+
   bottom: 13%;
   left: 50%;
 
@@ -523,10 +576,16 @@ a {
 
 .game-block {
   flex: 0 0 18%;
+
   height: 18%;
 
   border: 1px solid #777;
-  background: linear-gradient(135deg,#eee,#888);
+
+  background: linear-gradient(
+    135deg,
+    #eee,
+    #888
+  );
 
   box-shadow: 0 4px 0 #181818;
 }
@@ -556,10 +615,11 @@ a {
   background: #f7f7f7;
 }
 
-/* MOVING GAME BLOCK */
+/* MOVING BLOCK */
 
 .moving-block {
   position: absolute;
+
   z-index: 2;
 
   top: 0;
@@ -568,10 +628,10 @@ a {
   width: 29%;
   height: 14%;
 
-  background: white;
+  background: #fff;
   border: 1px solid #888;
 
-  box-shadow: 0 5px 14px rgba(255,255,255,.15);
+  box-shadow: 0 5px 14px rgba(255,255,255,0.15);
 
   transform: translateX(-50%);
 
@@ -590,6 +650,7 @@ a {
 
 .game-floor {
   position: absolute;
+
   bottom: 12%;
   left: 8%;
   right: 8%;
@@ -600,24 +661,25 @@ a {
 
 .game-caption {
   position: absolute;
+
   bottom: 5%;
   left: 0;
   right: 0;
 
   text-align: center;
-  font-size: clamp(8px,.8vw,11px);
-  letter-spacing: .26em;
-
   color: #aaa;
+
+  font-size: clamp(8px,0.8vw,11px);
+  letter-spacing: 0.26em;
 }
 
 .work-item:hover .moving-block {
   animation-duration: 1.9s;
 }
 
-/* =========================================
+/* ==========================================
    ABOUT
-========================================= */
+========================================== */
 
 .about-section {
   padding: 145px 0;
@@ -626,7 +688,7 @@ a {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1.1fr .9fr;
+  grid-template-columns: 1.1fr 0.9fr;
 
   gap: 10%;
   align-items: center;
@@ -634,7 +696,7 @@ a {
 
 .about-section h2 {
   font-size: clamp(65px,7.2vw,110px);
-  margin: 0;
+  margin-bottom: 0;
 }
 
 .about-text {
@@ -646,21 +708,16 @@ a {
 }
 
 .about-text p {
-  margin: 0 0 22px;
+  margin-bottom: 22px;
 }
 
 .about-text .outline-button {
   margin-top: 12px;
-  color: white;
 }
 
-.about-text .outline-button:hover {
-  color: black;
-}
-
-/* =========================================
-   FOOTER
-========================================= */
+/* ==========================================
+   CONTACT
+========================================== */
 
 .footer {
   background: #070707;
@@ -669,43 +726,55 @@ a {
 
 .footer-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
-  gap: 24px;
+  gap: 30px;
   padding-bottom: 95px;
 }
 
 .footer h2 {
   font-size: clamp(63px,8vw,130px);
-  margin: 0;
+  margin-bottom: 20px;
+}
+
+.contact-description {
+  max-width: 420px;
+
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.contact-button {
+  flex-shrink: 0;
 }
 
 .footer-bottom {
-  border-top: 1px solid #333;
-
   display: flex;
   justify-content: space-between;
+
   gap: 20px;
 
+  border-top: 1px solid #333;
   padding-top: 20px;
 
-  font-size: 10px;
   color: #999;
-  letter-spacing: .12em;
+  font-size: 10px;
+  letter-spacing: 0.12em;
 }
 
-/* =========================================
+/* ==========================================
    SCROLL REVEAL
-========================================= */
+========================================== */
 
 .reveal {
   opacity: 0;
   transform: translateY(38px);
 
   transition:
-    opacity .9s ease,
-    transform .9s cubic-bezier(.2,.7,.2,1);
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(.2,.7,.2,1);
 }
 
 .reveal.visible {
@@ -713,9 +782,9 @@ a {
   transform: translateY(0);
 }
 
-/* =========================================
+/* ==========================================
    TABLET
-========================================= */
+========================================== */
 
 @media (max-width: 850px) {
 
@@ -725,14 +794,14 @@ a {
 
   .menu-toggle {
     display: block;
+
     margin-left: auto;
 
-    border: 0;
+    border: none;
     background: transparent;
-    color: white;
 
+    color: white;
     font-size: 24px;
-    cursor: pointer;
   }
 
   .header-button {
@@ -743,15 +812,18 @@ a {
     display: none;
 
     position: absolute;
+
     top: 75px;
     left: 0;
     right: 0;
 
     background: #0c0c0c;
+
     padding: 25px 6vw;
 
     flex-direction: column;
     align-items: flex-start;
+
     gap: 25px;
   }
 
@@ -766,21 +838,20 @@ a {
   .hero-shade {
     background: linear-gradient(
       90deg,
-      rgba(0,0,0,.94),
-      rgba(0,0,0,.64) 65%,
-      rgba(0,0,0,.20)
+      rgba(0,0,0,0.94),
+      rgba(0,0,0,0.64) 65%,
+      rgba(0,0,0,0.20)
     );
   }
 
   .about-grid {
     gap: 7%;
   }
-
 }
 
-/* =========================================
+/* ==========================================
    MOBILE
-========================================= */
+========================================== */
 
 @media (max-width: 600px) {
 
@@ -870,6 +941,7 @@ a {
   .footer-inner {
     align-items: flex-start;
     flex-direction: column;
+
     padding-bottom: 70px;
   }
 
@@ -877,7 +949,18 @@ a {
     font-size: clamp(65px,15vw,100px);
   }
 
+  .contact-button {
+    flex-shrink: 1;
+  }
+
+  .footer-bottom {
+    font-size: 9px;
+  }
 }
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -896,10 +979,8 @@ a {
   }
 
   .work-art img,
-  .fallback-title,
   .outline-button,
   .header-button {
     transition: none;
   }
-
 }
