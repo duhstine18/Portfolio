@@ -1051,3 +1051,65 @@ img {
     transition: none;
   }
 }
+
+/* MOBILE RESPONSIVENESS IMPROVEMENTS */
+
+@media (max-width: 480px) {
+
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-art {
+    aspect-ratio: 1.35;
+  }
+
+  /* RACOS */
+
+  .racos-landing-content {
+    left: 7%;
+    width: 86%;
+  }
+
+  .racos-landing-content h4 {
+    font-size: clamp(36px, 10vw, 53px);
+  }
+
+  .racos-actions {
+    gap: 8px;
+  }
+
+  .racos-login-btn,
+  .racos-register-btn {
+    padding: 9px 13px;
+    font-size: 9px;
+  }
+
+  /* ALERTO */
+
+  .alerto-copy {
+    width: 40%;
+  }
+
+  .alerto-phone {
+    width: 45%;
+    height: 110%;
+    margin-top: 16%;
+  }
+
+  .alerto-copy h4 {
+    font-size: clamp(35px, 10vw, 48px);
+  }
+
+  .alerto-tagline {
+    font-size: clamp(19px, 5vw, 25px);
+  }
+
+  /* CONTACT */
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+}
