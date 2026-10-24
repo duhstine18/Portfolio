@@ -1,15 +1,28 @@
 
 "use strict";
 
-/* =============================
-   PORTRAIT FRAMES
-============================= */
+/* ==========================================
+   JUSTINE KIM LARGO PORTFOLIO
+   RESPONSIVE JAVASCRIPT
+========================================== */
+
+/* ==========================================
+   PORTRAIT SCROLL ANIMATION
+========================================== */
 
 const TOTAL_FRAMES = 240;
 
-const canvas = document.getElementById("portrait-sequence");
-const ctx = canvas.getContext("2d", { alpha: false });
-const hero = document.querySelector(".hero-scroll");
+const canvas = document.getElementById(
+  "portrait-sequence"
+);
+
+const hero = document.querySelector(
+  ".hero-scroll"
+);
+
+const ctx = canvas
+  ? canvas.getContext("2d", { alpha: false })
+  : null;
 
 const frames = new Array(TOTAL_FRAMES);
 
@@ -18,132 +31,281 @@ const reducedMotion = window.matchMedia(
 ).matches;
 
 let desiredFrame = 0;
-let renderedFrame = -1;
-let rafPending = false;
+let displayedFrame = -1;
+let animationRequested = false;
 
-let viewWidth = 0;
-let viewHeight = 0;
+let canvasWidth = 0;
+let canvasHeight = 0;
 
-/* FRAME FILENAMES */
+/* ==========================================
+   FRAME FILE PATH
+========================================== */
 
 function framePath(index) {
   const number = String(index + 1).padStart(3, "0");
+
   return `frames/ezgif-frame-${number}.jpg`;
 }
 
-/* LOAD AN IMAGE */
+/* ==========================================
+   LOAD ANIMATION FRAME
+========================================== */
 
 function loadFrame(index) {
-  if (index < 0 || index >= TOTAL_FRAMES) return;
-  if (frames[index]) return;
+  if (index < 0 || index >= TOTAL_FRAMES) {
+    return;
+  }
 
-  const img = new Image();
+  if (frames[index]) {
+    return;
+  }
 
-  frames[index] = img;
-  img.decoding = "async";
+  const image = new Image();
 
-  img.onload = () => {
-    if (index === desiredFrame || renderedFrame < 0) {
-      requestDraw();
-    }
+  frames[index] = image;
+  image.decoding = "async";
+
+  image.onload = () => {
+    requestDraw();
   };
 
-  img.onerror = () => {
-    frames[index] = null;
+  image.onerror = () => {
+    // Mark this frame unavailable to avoid
+    // repeatedly requesting a missing file.
+    frames[index] = false;
   };
 
-  img.src = framePath(index);
+  image.src = framePath(index);
 }
 
-/* DRAW PORTRAIT */
+/* ==========================================
+   FIND NEAREST AVAILABLE FRAME
+========================================== */
 
-function drawFrame() {
-  rafPending = false;
+function getAvailableFrame(index) {
+  const requested = frames[index];
 
-  if (!viewWidth || !viewHeight) return;
+  if (
+    requested instanceof Image &&
+    requested.complete &&
+    requested.naturalWidth > 0
+  ) {
+    return index;
+  }
 
-  let index = desiredFrame;
+  for (let distance = 1; distance < TOTAL_FRAMES; distance++) {
+    const before = index - distance;
+    const after = index + distance;
 
-  if (!frames[index]?.complete || !frames[index]?.naturalWidth) {
-    let distance = Infinity;
+    if (before >= 0) {
+      const image = frames[before];
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      if (frames[i]?.complete && frames[i]?.naturalWidth) {
-        const current = Math.abs(i - desiredFrame);
-
-        if (current < distance) {
-          distance = current;
-          index = i;
-        }
+      if (
+        image instanceof Image &&
+        image.complete &&
+        image.naturalWidth > 0
+      ) {
+        return before;
       }
     }
 
-    if (distance === Infinity) return;
+    if (after < TOTAL_FRAMES) {
+      const image = frames[after];
+
+      if (
+        image instanceof Image &&
+        image.complete &&
+        image.naturalWidth > 0
+      ) {
+        return after;
+      }
+    }
   }
 
-  if (index === renderedFrame) return;
-
-  const img = frames[index];
-
-  const ratio = Math.max(
-    viewWidth / img.naturalWidth,
-    viewHeight / img.naturalHeight
-  );
-
-  const width = img.naturalWidth * ratio;
-  const height = img.naturalHeight * ratio;
-
-  const shift = viewWidth > 850
-    ? Math.min(viewWidth * 0.12, 185)
-    : viewWidth * 0.12;
-
-  const x = (viewWidth - width) / 2 + shift;
-  const y = (viewHeight - height) / 2;
-
-  ctx.fillStyle = "#060606";
-  ctx.fillRect(0, 0, viewWidth, viewHeight);
-
-  ctx.drawImage(img, x, y, width, height);
-
-  renderedFrame = index;
+  return -1;
 }
 
-function requestDraw() {
-  if (rafPending) return;
+/* ==========================================
+   DRAW PORTRAIT — RESPONSIVE
+========================================== */
 
-  rafPending = true;
+function drawFrame() {
+  animationRequested = false;
+
+  if (!ctx || !canvasWidth || !canvasHeight) {
+    return;
+  }
+
+  const index = getAvailableFrame(desiredFrame);
+
+  if (index === -1) {
+    return;
+  }
+
+  if (index === displayedFrame) {
+    return;
+  }
+
+  const image = frames[index];
+
+  const mobile = canvasWidth <= 600;
+
+  let drawWidth;
+  let drawHeight;
+  let x;
+  let y;
+
+  if (mobile) {
+
+    /*
+      MOBILE:
+      Avoid using "cover", because that
+      makes a 16:9 frame extremely zoomed
+      on a tall phone screen.
+
+      Instead, position a larger portrait
+      across the upper portion, leaving
+      room for text below.
+    */
+
+    drawWidth = Math.max(
+      canvasWidth * 1.35,
+      canvasHeight * 0.92
+    );
+
+    drawHeight =
+      drawWidth *
+      (image.naturalHeight / image.naturalWidth);
+
+    x = (canvasWidth - drawWidth) / 2;
+    y = canvasHeight * 0.075;
+
+  } else {
+
+    /*
+      DESKTOP:
+      Cover the canvas and shift the image
+      slightly to the right to leave space
+      for the large heading.
+    */
+
+    const scale = Math.max(
+      canvasWidth / image.naturalWidth,
+      canvasHeight / image.naturalHeight
+    );
+
+    drawWidth = image.naturalWidth * scale;
+    drawHeight = image.naturalHeight * scale;
+
+    const shift = Math.min(
+      canvasWidth * 0.12,
+      185
+    );
+
+    x = (canvasWidth - drawWidth) / 2 + shift;
+    y = (canvasHeight - drawHeight) / 2;
+  }
+
+  /* BLACK BACKGROUND */
+
+  ctx.fillStyle = "#060606";
+  ctx.fillRect(
+    0,
+    0,
+    canvasWidth,
+    canvasHeight
+  );
+
+  /* DRAW THE PORTRAIT */
+
+  ctx.drawImage(
+    image,
+    x,
+    y,
+    drawWidth,
+    drawHeight
+  );
+
+  displayedFrame = index;
+}
+
+/* ==========================================
+   REQUEST CANVAS DRAW
+========================================== */
+
+function requestDraw() {
+  if (!ctx || animationRequested) {
+    return;
+  }
+
+  animationRequested = true;
+
   requestAnimationFrame(drawFrame);
 }
 
-/* CANVAS RESIZING */
+/* ==========================================
+   RESIZE CANVAS
+========================================== */
 
 function resizeCanvas() {
-  viewWidth = canvas.clientWidth;
-  viewHeight = canvas.clientHeight;
+  if (!canvas || !ctx) {
+    return;
+  }
 
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvasWidth = canvas.clientWidth;
+  canvasHeight = canvas.clientHeight;
 
-  canvas.width = Math.round(viewWidth * dpr);
-  canvas.height = Math.round(viewHeight * dpr);
+  if (!canvasWidth || !canvasHeight) {
+    return;
+  }
 
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const pixelRatio = Math.min(
+    window.devicePixelRatio || 1,
+    2
+  );
 
-  renderedFrame = -1;
+  canvas.width = Math.round(
+    canvasWidth * pixelRatio
+  );
+
+  canvas.height = Math.round(
+    canvasHeight * pixelRatio
+  );
+
+  ctx.setTransform(
+    pixelRatio,
+    0,
+    0,
+    pixelRatio,
+    0,
+    0
+  );
+
+  displayedFrame = -1;
+
   requestDraw();
 }
 
-/* SCROLL ANIMATION */
+/* ==========================================
+   UPDATE ANIMATION ON SCROLL
+========================================== */
 
 function updateSequence() {
-  if (reducedMotion) return;
+  if (!hero || reducedMotion) {
+    return;
+  }
 
-  const distance = hero.offsetHeight - window.innerHeight;
+  const scrollDistance = Math.max(
+    1,
+    hero.offsetHeight - window.innerHeight
+  );
 
   const progress = Math.min(
     1,
     Math.max(
       0,
-      -hero.getBoundingClientRect().top / Math.max(distance, 1)
+      -hero.getBoundingClientRect().top /
+      scrollDistance
     )
   );
 
@@ -151,111 +313,260 @@ function updateSequence() {
     progress * (TOTAL_FRAMES - 1)
   );
 
-  if (nextFrame === desiredFrame) return;
+  if (nextFrame === desiredFrame) {
+    return;
+  }
 
   desiredFrame = nextFrame;
 
-  loadFrame(nextFrame);
+  /* LOAD REQUESTED FRAME */
 
-  for (let offset = 1; offset <= 5; offset++) {
-    loadFrame(nextFrame + offset);
-    loadFrame(nextFrame - offset);
+  loadFrame(desiredFrame);
+
+  /* PRELOAD NEARBY FRAMES */
+
+  for (let offset = 1; offset <= 6; offset++) {
+    loadFrame(desiredFrame - offset);
+    loadFrame(desiredFrame + offset);
   }
 
   requestDraw();
 }
 
-/* INITIAL FRAMES */
+/* ==========================================
+   INITIALIZE ANIMATION
+========================================== */
 
-for (let i = 0; i < 12; i++) {
-  loadFrame(i);
-}
+if (canvas && hero && ctx) {
 
-window.addEventListener("scroll", updateSequence, {
-  passive: true
-});
+  /* Load the initial frame immediately */
 
-window.addEventListener("resize", () => {
+  loadFrame(0);
+
+  /* Load nearby starting frames */
+
+  for (let i = 1; i < 12; i++) {
+    loadFrame(i);
+  }
+
   resizeCanvas();
   updateSequence();
-}, { passive: true });
 
-resizeCanvas();
-updateSequence();
+  /* One scheduled update per animation frame */
 
-/* PRELOAD OTHER FRAMES */
+  let scrollScheduled = false;
 
-let preloadAt = 12;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (scrollScheduled) return;
 
-function preloadBatch() {
-  const end = Math.min(TOTAL_FRAMES, preloadAt + 12);
+      scrollScheduled = true;
 
-  while (preloadAt < end) {
-    loadFrame(preloadAt++);
-  }
+      requestAnimationFrame(() => {
+        scrollScheduled = false;
+        updateSequence();
+      });
+    },
+    { passive: true }
+  );
 
-  if (preloadAt < TOTAL_FRAMES) {
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(preloadBatch, { timeout: 250 });
-    } else {
-      setTimeout(preloadBatch, 100);
-    }
-  }
-}
+  let resizeScheduled = false;
 
-if (!reducedMotion) {
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(preloadBatch, { timeout: 350 });
-  } else {
-    setTimeout(preloadBatch, 150);
-  }
-}
+  window.addEventListener(
+    "resize",
+    () => {
+      if (resizeScheduled) return;
 
-/* =============================
-   SECTION REVEALS
-============================= */
+      resizeScheduled = true;
 
-const revealItems = document.querySelectorAll(".reveal");
+      requestAnimationFrame(() => {
+        resizeScheduled = false;
+        resizeCanvas();
+        updateSequence();
+      });
+    },
+    { passive: true }
+  );
 
-if (reducedMotion || !("IntersectionObserver" in window)) {
-  revealItems.forEach(el => el.classList.add("visible"));
-} else {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+  /* ======================================
+     PRELOAD FRAMES IN BATCHES
+  ====================================== */
+
+  if (!reducedMotion) {
+
+    let nextPreloadFrame = 12;
+
+    function preloadBatch() {
+      const end = Math.min(
+        TOTAL_FRAMES,
+        nextPreloadFrame + 10
+      );
+
+      while (nextPreloadFrame < end) {
+        loadFrame(nextPreloadFrame);
+        nextPreloadFrame++;
       }
-    });
-  }, {
-    threshold: 0.12
-  });
 
-  revealItems.forEach(el => observer.observe(el));
+      if (nextPreloadFrame < TOTAL_FRAMES) {
+        schedulePreload();
+      }
+    }
+
+    function schedulePreload() {
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(
+          preloadBatch,
+          { timeout: 500 }
+        );
+      } else {
+        setTimeout(preloadBatch, 100);
+      }
+    }
+
+    schedulePreload();
+  }
 }
 
-/* =============================
-   MOBILE MENU
-============================= */
+/* ==========================================
+   SCROLL REVEAL ANIMATIONS
+========================================== */
 
-const menu = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav");
+const revealElements = document.querySelectorAll(
+  ".reveal"
+);
 
-menu.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  menu.setAttribute("aria-expanded", String(open));
-});
+if (
+  reducedMotion ||
+  !("IntersectionObserver" in window)
+) {
 
-nav.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    nav.classList.remove("open");
-    menu.setAttribute("aria-expanded", "false");
+  revealElements.forEach((element) => {
+    element.classList.add("visible");
   });
+
+} else {
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.08,
+      rootMargin: "0px 0px -20px 0px"
+    }
+  );
+
+  revealElements.forEach((element) => {
+    revealObserver.observe(element);
+  });
+}
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+const menuToggle = document.querySelector(
+  ".menu-toggle"
+);
+
+const navigation = document.querySelector(
+  ".nav"
+);
+
+if (menuToggle && navigation) {
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navigation.classList.toggle(
+      "open"
+    );
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation"
+    );
+  });
+
+  /* Close menu after selecting a link */
+
+  navigation.querySelectorAll("a").forEach(
+    (link) => {
+
+      link.addEventListener("click", () => {
+        navigation.classList.remove("open");
+
+        menuToggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        menuToggle.setAttribute(
+          "aria-label",
+          "Open navigation"
+        );
+      });
+
+    }
+  );
+
+  /* Close the menu when pressing Escape */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key === "Escape") {
+        navigation.classList.remove("open");
+
+        menuToggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+      }
+    }
+  );
+}
+
+/* ==========================================
+   PROJECT IMAGE FALLBACK
+========================================== */
+
+document.querySelectorAll(
+  ".work-art img"
+).forEach((image) => {
+
+  image.addEventListener(
+    "error",
+    () => {
+      image.style.display = "none";
+    },
+    { once: true }
+  );
+
 });
 
-/* =============================
-   YEAR
-============================= */
+/* ==========================================
+   COPYRIGHT YEAR
+========================================== */
 
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+const yearElement = document.getElementById(
+  "year"
+);
+
+if (yearElement) {
+  yearElement.textContent =
+    new Date().getFullYear();
+}
