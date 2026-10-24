@@ -27,6 +27,8 @@
 </head>
 
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- BACKGROUND -->
   <div class="background-art" aria-hidden="true">
@@ -68,13 +70,13 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <a class="header-cta" href="#contact">
+    <a class="header-cta magnetic" href="#contact">
       Let's connect <span aria-hidden="true">↗</span>
     </a>
 
   </header>
 
-  <main>
+  <main id="main-content">
 
     <!-- =====================================
          HOME SECTION
@@ -119,7 +121,7 @@
 
         <div class="hero-actions">
 
-          <a class="button primary" href="#projects">
+          <a class="button primary magnetic" href="#projects">
             Explore my work <span>↗</span>
           </a>
 
@@ -138,7 +140,7 @@
       </div>
 
       <!-- ORIGINAL FLOATING GLASS CARD -->
-      <div class="hero-visual">
+      <div class="hero-visual" data-parallax>
 
         <div class="orbit orbit-outer"></div>
         <div class="orbit orbit-inner"></div>
@@ -156,7 +158,7 @@
   <div class="avatar-halo"></div>
 
   <img
-    src="./images/justine-portrait.png"
+    src="./images/justine-portrait.png" fetchpriority="high"
     alt="Portrait of Justine Kim Largo"
     class="hero-profile-image"
   />
@@ -193,7 +195,7 @@
       class="content-section section-width"
     >
 
-      <div class="section-heading">
+      <div class="section-heading reveal">
 
         <span class="section-kicker">
           01 / GET TO KNOW ME
@@ -207,7 +209,7 @@
 
       <div class="about-layout">
 
-        <div class="glass about-story">
+        <div class="glass about-story reveal">
           <div class="tiny-label">THE STORY SO FAR</div>
           <h3>Curious by nature.<br />Learning through creation.</h3>
           <p>Hi! I'm <strong>Justine Kim Largo</strong>, an Information Technology student and aspiring developer who enjoys turning creative ideas into working projects.</p>
@@ -220,7 +222,7 @@
         <div class="about-side">
 
           <!-- CURRENT FOCUS -->
-          <div class="glass mini-panel">
+          <div class="glass mini-panel reveal">
 
             <span class="mini-icon">✧</span>
 
@@ -242,7 +244,7 @@
           </div>
 
           <!-- MY APPROACH -->
-          <div class="glass mini-panel">
+          <div class="glass mini-panel reveal">
 
             <span class="mini-icon">⌘</span>
 
@@ -281,7 +283,7 @@
       class="content-section section-width"
     >
 
-      <div class="section-heading">
+      <div class="section-heading reveal">
 
         <span class="section-kicker">
           02 / MY TOOLKIT
@@ -301,7 +303,7 @@
       <div class="skills-grid">
 
         <!-- WEB DEVELOPMENT -->
-        <div class="glass skill-card">
+        <div class="glass skill-card reveal">
 
           <span class="skill-symbol">⌨</span>
 
@@ -323,7 +325,7 @@
         </div>
 
         <!-- BACKEND AND DATABASE -->
-        <div class="glass skill-card">
+        <div class="glass skill-card reveal">
 
           <span class="skill-symbol">◈</span>
 
@@ -344,7 +346,7 @@
         </div>
 
         <!-- GAME DEVELOPMENT -->
-        <div class="glass skill-card">
+        <div class="glass skill-card reveal">
 
           <span class="skill-symbol">{ }</span>
 
@@ -374,7 +376,7 @@
     ====================================== -->
 
     <section class="content-section section-width" id="projects">
-<div class="section-heading">
+<div class="section-heading reveal">
 <span class="section-kicker">
           03 / SELECTED WORK
         </span>
@@ -387,7 +389,7 @@
 </div>
 <div class="projects-grid">
 <!-- PROJECT 01: RACO'S -->
-<article class="glass project-card">
+<article class="glass project-card reveal">
 
 <!-- RACO'S PROJECT PREVIEW -->
 <div class="project-art project-art-one">
@@ -438,7 +440,7 @@
 </div>
 </article>
 <!-- PROJECT 02: STACK ME UP -->
-<article class="glass project-card">
+<article class="glass project-card reveal">
 <div aria-label="Preview of the Stack Me Up block-stacking game" class="project-art project-art-two" role="img">
 <div class="stack-preview">
 <div class="stack-score">3</div><div class="stack-help">Click (or press the spacebar) to place the block</div>
@@ -470,10 +472,11 @@
 </div>
 </article>
 <!-- PROJECT 03: SHADOW OF THE RIFT -->
-<article class="glass project-card">
+<article class="glass project-card reveal">
 
 <div class="project-art project-art-three">
   <img
+    loading="lazy" decoding="async"
     src="images/shadow-of-the-rift.png"
     alt="Shadow of the Rift preview"
     class="project-preview-image"
@@ -504,8 +507,8 @@
 </div>
 </article>
 <!-- PROJECT 04: ALERTO -->
-<article class="glass project-card">
-<div aria-label="Conceptual ALERTO mobile incident reporting app UI" class="project-art project-art-four" role="img"><div class="alerto-showcase"><div class="alerto-glow"></div><div class="alerto-side-label"><span>ALERTO</span><small>MOBILE APPLICATION</small><small>FLUTTER • AI-ASSISTED</small><span class="alerto-concept-tag">IN DEVELOPMENT</span></div><div class="alerto-phone"><div class="alerto-phone-screen"><div class="alerto-notch"></div><div class="alerto-mobile-header"><div class="alerto-app-logo">✚</div><div><strong>ALERTO</strong><small>Stay aware. Stay safe.</small></div><span class="alerto-bell">♧</span></div><div class="alerto-mobile-content"><div class="alerto-welcome"><strong>Stay Safe, Stay Alert</strong><small>Report incidents in your community.</small></div><div class="alerto-report-panel"><div class="alerto-panel-title"><span class="alerto-camera">▣</span><strong>Report an Incident</strong></div><p>Help authorities understand the situation.</p><div class="alerto-upload-button"><span>⊕</span> Upload Incident Photo</div></div><div class="alerto-section-label"><strong>My Reports</strong><small>View all →</small></div><div class="alerto-report-item"><span class="alerto-report-symbol">▤</span><div><strong>Incident Report</strong><small>Awaiting verification</small></div><span class="alerto-status-pill pending">Pending</span></div><div class="alerto-report-item"><span class="alerto-report-symbol">✓</span><div><strong>Incident Report</strong><small>Human verified</small></div><span class="alerto-status-pill verified">Verified</span></div></div><div class="alerto-bottom-nav"><div class="active">⌂ <span>Home</span></div><div>▤ <span>Reports</span></div><div>◉ <span>Profile</span></div></div></div></div></div></div>
+<article class="glass project-card reveal">
+<div aria-label="Conceptual ALERTO mobile incident reporting app UI" class="project-art project-art-four" role="img"><div class="alerto-showcase"><div class="alerto-glow"></div><div class="alerto-side-label"><span>ALERTO</span><small>MOBILE APPLICATION</small><small>FLUTTER • AI-ASSISTED</small><span class="alerto-concept-tag">CONCEPT PREVIEW · IN DEVELOPMENT</span></div><div class="alerto-phone"><div class="alerto-phone-screen"><div class="alerto-notch"></div><div class="alerto-mobile-header"><div class="alerto-app-logo">✚</div><div><strong>ALERTO</strong><small>Stay aware. Stay safe.</small></div><span class="alerto-bell">♧</span></div><div class="alerto-mobile-content"><div class="alerto-welcome"><strong>Stay Safe, Stay Alert</strong><small>Report incidents in your community.</small></div><div class="alerto-report-panel"><div class="alerto-panel-title"><span class="alerto-camera">▣</span><strong>Report an Incident</strong></div><p>Help authorities understand the situation.</p><div class="alerto-upload-button"><span>⊕</span> Upload Incident Photo</div></div><div class="alerto-section-label"><strong>My Reports</strong><small>View all →</small></div><div class="alerto-report-item"><span class="alerto-report-symbol">▤</span><div><strong>Incident Report</strong><small>Awaiting verification</small></div><span class="alerto-status-pill pending">Pending</span></div><div class="alerto-report-item"><span class="alerto-report-symbol">✓</span><div><strong>Incident Report</strong><small>Human verified</small></div><span class="alerto-status-pill verified">Verified</span></div></div><div class="alerto-bottom-nav"><div class="active">⌂ <span>Home</span></div><div>▤ <span>Reports</span></div><div>◉ <span>Profile</span></div></div></div></div></div></div>
 <div class="project-content">
 <div class="project-number">PROJECT 04 <span>↗</span></div>
 <h3>ALERTO — Emergency Reporting Mobile App</h3>
@@ -528,7 +531,7 @@
 
     
 <section id="contact" class="content-section section-width contact-section">
-  <div class="glass contact-panel">
+  <div class="glass contact-panel reveal">
     <div class="contact-glow"></div>
 
     <span class="section-kicker">04 / SAY HELLO</span>
@@ -542,18 +545,14 @@
 
 
 <a
-  class="button primary contact-button"
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=justinelargo8%40gmail.com&su=Portfolio%20Inquiry"
-  target="_blank"
-  rel="noopener noreferrer"
->
+  class="button primary magnetic contact-button"
+  href="mailto:justinelargo8@gmail.com?subject=Portfolio%20Inquiry"
+  >
   Send me an Email <span>↗</span>
 </a>
 
 
-    <p class="contact-email">
-      justinelargo8@gmail.com
-    </p>
+    <p class="contact-email"><a href="mailto:justinelargo8@gmail.com">justinelargo8@gmail.com</a></p>
   </div>
 </section>
 
