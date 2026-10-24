@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#080808">
 
   <meta name="description"
-    content="Justine Kim Largo — IT Student, Aspiring Developer, and Creative Thinker.">
+    content="Portfolio of Justine Kim Largo — IT Student and Aspiring Developer.">
 
   <title>Justine Kim Largo — Portfolio</title>
 
@@ -24,10 +24,7 @@
 
   <!-- NAVIGATION -->
   <header class="header">
-
-    <a class="logo" href="#home">
-      JUSTINE<span>.</span>
-    </a>
+    <a class="logo" href="#home">JUSTINE<span>.</span></a>
 
     <button class="menu-toggle"
       type="button"
@@ -47,32 +44,25 @@
     <a class="header-button" href="#contact">
       LET'S WORK
     </a>
-
   </header>
-
 
   <main>
 
-    <!-- ==========================
-         HERO SECTION
-    =========================== -->
-
+    <!-- HERO -->
     <section id="home" class="hero-scroll">
-
       <div class="hero-sticky">
 
-        <canvas id="portrait-sequence"
+        <canvas
+          id="portrait-sequence"
           role="img"
-          aria-label="Animated portrait of Justine Kim Largo">
+          aria-label="Portrait animation of Justine Kim Largo">
         </canvas>
 
         <div class="hero-shade"></div>
 
         <div class="hero-content">
-
           <p class="eyebrow">
-            HELLO, I'M JUSTINE
-            <span>────</span>
+            HELLO, I'M JUSTINE <span>────</span>
           </p>
 
           <h1>
@@ -83,86 +73,121 @@
 
           <p class="hero-summary">
             IT student, aspiring developer, and creative thinker.
-            I build interactive digital experiences and
-            practical web applications.
+            I build interactive digital experiences and practical
+            web applications.
           </p>
 
-          <a href="#projects" class="outline-button">
+          <a class="outline-button" href="#projects">
             VIEW PORTFOLIO ↗
           </a>
-
         </div>
 
         <div class="hero-bottom">
           <span>DEVELOPMENT / DESIGN / CREATIVITY</span>
           <span>SCROLL TO EXPLORE ↓</span>
         </div>
-
       </div>
-
     </section>
 
 
-    <!-- ==========================
-         SELECTED WORKS
-    =========================== -->
-
+    <!-- SELECTED WORKS -->
     <section id="projects" class="work-section">
-
       <div class="section-inner">
 
         <div class="section-heading reveal">
-
           <div>
             <p class="eyebrow dark">
               MY WORK <span>────</span>
             </p>
-
             <h2>SELECTED WORKS</h2>
           </div>
 
           <p class="subheading">
             WEB DEVELOPMENT / GAMES / AI
           </p>
-
         </div>
-
 
         <div class="work-grid">
 
-          <!-- PROJECT 01 RACOS -->
+          <!-- ======================
+               RACOS LANDING PREVIEW
+          ======================= -->
 
-          <a class="work-item reveal"
-            href="https://github.com/duhstine18/RACOS.git"
-            target="_blank"
-            rel="noopener noreferrer">
+          <article class="work-item reveal">
 
-            <div class="work-art art-racos">
+            <div class="work-art racos-preview">
 
-              <span class="fallback-title">RACOS</span>
-
+              <!-- ORIGINAL RACOS PICTURE -->
               <img
                 src="images/racos-car.png"
-                alt="RACOS project website preview"
-                loading="lazy"
-                onerror="this.style.display='none'">
+                alt="RACOS car rental website"
+                class="racos-background"
+                loading="lazy">
+
+              <div class="racos-overlay"></div>
+
+              <div class="racos-navbar">
+                <span class="racos-logo">RACOS<span>.</span></span>
+
+                <span class="racos-nav-links">
+                  HOME &nbsp;&nbsp; CARS &nbsp;&nbsp; ABOUT
+                </span>
+
+                <span class="racos-nav-outline">
+                  CAR RENTAL
+                </span>
+              </div>
+
+              <div class="racos-landing-content">
+                <span class="preview-eyebrow">
+                  PREMIUM CAR RENTAL EXPERIENCE
+                </span>
+
+                <h4>
+                  YOUR RIDE.<br>
+                  YOUR WAY.
+                </h4>
+
+                <p>
+                  Discover your next drive with RACOS.
+                </p>
+
+                <div class="racos-actions">
+                  <span class="racos-login-btn">
+                    LOG IN ↗
+                  </span>
+
+                  <span class="racos-register-btn">
+                    REGISTER
+                  </span>
+                </div>
+              </div>
+
+              <div class="racos-bottom">
+                <span>DRIVE WITH CONFIDENCE</span>
+                <span>01 / RACOS</span>
+              </div>
 
             </div>
 
             <div class="work-meta">
               <h3>RACOS</h3>
-              <span>PHP / MySQL ↗</span>
+
+              <a href="https://github.com/duhstine18/RACOS.git"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                PHP / MySQL ↗
+              </a>
             </div>
 
-          </a>
+          </article>
 
 
-          <!-- PROJECT 02 STACK ME UP -->
+          <!-- ======================
+               STACK ME UP
+          ======================= -->
 
-          <a class="work-item reveal"
-            href="https://github.com/duhstine18/STACK-ME-UP.git"
-            target="_blank"
-            rel="noopener noreferrer">
+          <article class="work-item reveal">
 
             <div class="work-art art-stack">
 
@@ -173,24 +198,22 @@
                   <span>BEST 009</span>
                 </div>
 
-                <div class="game-score">005</div>
+                <div class="game-score">
+                  005
+                </div>
 
                 <div class="stack-scene">
-
                   <div class="moving-block"></div>
 
                   <div class="block-tower">
-
                     <div class="game-block block-5"></div>
                     <div class="game-block block-4"></div>
                     <div class="game-block block-3"></div>
                     <div class="game-block block-2"></div>
                     <div class="game-block block-1"></div>
-
                   </div>
 
                   <div class="game-floor"></div>
-
                 </div>
 
                 <div class="game-caption">
@@ -203,57 +226,140 @@
 
             <div class="work-meta">
               <h3>STACK ME UP</h3>
-              <span>JavaScript / Canvas ↗</span>
+
+              <a href="https://github.com/duhstine18/STACK-ME-UP.git"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                JavaScript / Canvas ↗
+              </a>
             </div>
 
-          </a>
+          </article>
 
 
-          <!-- PROJECT 03 SHADOW OF THE RIFT -->
+          <!-- ======================
+               SHADOW OF THE RIFT
+          ======================= -->
 
-          <a class="work-item reveal"
-            href="https://github.com/duhstine18/ShadowOfTheRift.git"
-            target="_blank"
-            rel="noopener noreferrer">
+          <article class="work-item reveal">
 
             <div class="work-art art-rift">
+              <img
+                src="images/shadow-of-the-rift.png"
+                alt="Shadow of the Rift game preview"
+                loading="lazy">
 
               <span class="fallback-title">
                 SHADOW<br>OF THE RIFT
               </span>
-
-              <img
-                src="images/shadow-of-the-rift.png"
-                alt="Shadow of the Rift game"
-                loading="lazy"
-                onerror="this.style.display='none'">
-
             </div>
 
             <div class="work-meta">
               <h3>SHADOW OF THE RIFT</h3>
-              <span>Python / Pygame ↗</span>
+
+              <a href="https://github.com/duhstine18/ShadowOfTheRift.git"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                Python / Pygame ↗
+              </a>
             </div>
 
-          </a>
+          </article>
 
 
-          <!-- PROJECT 04 ALERTO -->
+          <!-- ======================
+               ALERTO MOBILE LOGIN
+          ======================= -->
 
-          <div class="work-item reveal">
+          <article class="work-item reveal">
 
-            <div class="work-art art-alerto">
+            <div class="work-art alerto-preview">
 
-              <span class="fallback-title">
-                ALERTO
-              </span>
+              <div class="alerto-showcase">
 
-              <img
-                src="images/alerto.png"
-                alt="ALERTO AI incident reporting system"
-                loading="lazy"
-                onerror="this.style.display='none'">
+                <div class="alerto-copy">
 
+                  <span class="preview-eyebrow">
+                    AI-ASSISTED INCIDENT REPORTING
+                  </span>
+
+                  <h4>ALERTO<span>.</span></h4>
+
+                  <p class="alerto-tagline">
+                    REPORT.<br>
+                    VERIFY.<br>
+                    STAY SAFE.
+                  </p>
+
+                  <span class="alerto-platform">
+                    MOBILE APPLICATION
+                  </span>
+                </div>
+
+                <!-- PHONE MOCKUP -->
+                <div class="alerto-phone">
+
+                  <div class="alerto-phone-screen">
+
+                    <div class="phone-status">
+                      <span>9:41</span>
+                      <span>● ▰</span>
+                    </div>
+
+                    <div class="phone-logo">
+                      <div class="alerto-symbol">A</div>
+
+                      <h5>ALERTO</h5>
+                      <p>STAY AWARE. STAY SAFE.</p>
+                    </div>
+
+                    <div class="phone-login">
+
+                      <h6>WELCOME BACK</h6>
+
+                      <p>
+                        Sign in to report and monitor
+                        incidents in your community.
+                      </p>
+
+                      <div class="phone-field">
+                        <span>EMAIL ADDRESS</span>
+                        <div class="phone-input">
+                          Enter your email
+                        </div>
+                      </div>
+
+                      <div class="phone-field">
+                        <span>PASSWORD</span>
+                        <div class="phone-input">
+                          ••••••••••
+                        </div>
+                      </div>
+
+                      <div class="phone-forgot">
+                        Forgot Password?
+                      </div>
+
+                      <div class="phone-signin">
+                        SIGN IN →
+                      </div>
+
+                      <div class="phone-register">
+                        Don't have an account?
+                        <strong>REGISTER</strong>
+                      </div>
+
+                    </div>
+
+                    <div class="phone-footer">
+                      SECURE COMMUNITY REPORTING
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
             </div>
 
             <div class="work-meta">
@@ -261,24 +367,19 @@
               <span>Flutter / AI / PHP</span>
             </div>
 
-          </div>
+          </article>
 
         </div>
       </div>
-
     </section>
 
 
-    <!-- ==========================
-         ABOUT SECTION
-    =========================== -->
-
+    <!-- ABOUT -->
     <section id="about" class="about-section">
 
       <div class="section-inner about-grid">
 
         <div class="reveal">
-
           <p class="eyebrow">
             ABOUT ME <span>────</span>
           </p>
@@ -288,7 +389,6 @@
             A CREATIVE<br>
             DEVELOPER.
           </h2>
-
         </div>
 
         <div class="about-text reveal">
@@ -306,27 +406,21 @@
             and developing solutions to real-world problems.
           </p>
 
-          <a href="#contact" class="outline-button">
+          <a class="outline-button" href="#contact">
             LET'S WORK TOGETHER ↗
           </a>
-
         </div>
 
       </div>
-
     </section>
 
 
-    <!-- ==========================
-         CONTACT SECTION
-    =========================== -->
-
+    <!-- CONTACT -->
     <footer id="contact" class="footer">
 
       <div class="section-inner footer-inner reveal">
 
         <div>
-
           <p class="eyebrow">
             HAVE A PROJECT IN MIND?
           </p>
@@ -337,11 +431,11 @@
             Have a question, project, or collaboration in mind?
             Feel free to send me a message.
           </p>
-
         </div>
 
+        <!-- REPLACE WITH YOUR GMAIL -->
         <a
-          class="outline-button contact-button"
+          class="outline-button"
           href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=YOUR_EMAIL@gmail.com&amp;su=Portfolio%20Inquiry"
           target="_blank"
           rel="noopener noreferrer">
@@ -355,7 +449,8 @@
       <div class="section-inner footer-bottom">
 
         <span>
-          © <span id="year">2026</span> JUSTINE KIM LARGO
+          © <span id="year">2026</span>
+          JUSTINE KIM LARGO
         </span>
 
         <a href="#home">
