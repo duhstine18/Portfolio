@@ -1,7 +1,7 @@
 
 /* ==========================================
-   JUSTINE KIM LARGO — PREMIUM PORTFOLIO
-   COMPLETE RESPONSIVE STYLESHEET
+   JUSTINE KIM LARGO PORTFOLIO
+   COMPLETE CSS — CENTERED PORTRAIT
 ========================================== */
 
 :root {
@@ -61,8 +61,6 @@ h1, h2, h3, h4 {
   outline-offset: 4px;
 }
 
-/* ACCESSIBILITY */
-
 .skip-link {
   position: fixed;
   top: -100px;
@@ -77,8 +75,6 @@ h1, h2, h3, h4 {
   top: 15px;
 }
 
-/* SCROLL PROGRESS */
-
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -88,8 +84,6 @@ h1, h2, h3, h4 {
   background: var(--acid);
   z-index: 100;
 }
-
-/* CURSOR GLOW */
 
 .cursor-glow {
   position: fixed;
@@ -114,7 +108,9 @@ h1, h2, h3, h4 {
 
 .site-header {
   position: absolute;
-  inset: 0 0 auto;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 30;
   height: 88px;
   padding-inline: 5vw;
@@ -167,27 +163,26 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   HERO SECTION
+   HERO — NEW CENTERED COMPOSITION
 ========================================== */
 
 .hero {
-  min-height: 820px;
-  min-height: max(820px, 100svh);
   position: relative;
   isolation: isolate;
+  min-height: 100svh;
+  padding: 165px 5vw 55px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 195px 5vw 55px;
-  overflow: hidden;
+  align-items: stretch;
   background:
     radial-gradient(
-      ellipse at 72% 38%,
-      rgba(75,126,207,.35),
-      transparent 48%
+      ellipse at 50% 43%,
+      rgba(76,135,220,.29),
+      transparent 55%
     ),
     linear-gradient(
-      135deg,
+      140deg,
       #111e34,
       #0b1424 65%,
       #080e18
@@ -198,6 +193,7 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   z-index: -2;
+  pointer-events: none;
   background-image:
     linear-gradient(
       rgba(220,240,255,.045) 1px,
@@ -209,21 +205,20 @@ h1, h2, h3, h4 {
       transparent 1px
     );
   background-size: 9vw 9vw;
-  pointer-events: none;
 }
 
 .hero-topline {
   position: absolute;
-  top: 137px;
+  top: 123px;
   left: 5vw;
   right: 5vw;
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  color: #c9d6e7;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .12em;
-  color: #c9d6e7;
 }
 
 .signal {
@@ -233,27 +228,27 @@ h1, h2, h3, h4 {
 }
 
 .signal > span {
-  height: 8px;
   width: 8px;
+  height: 8px;
   flex: none;
   border-radius: 50%;
   background: var(--acid);
   box-shadow: 0 0 17px var(--acid);
 }
 
-/* HERO TYPOGRAPHY */
+/* CENTERED HERO TITLE */
 
 .hero-title-block {
   position: relative;
   z-index: 3;
-  width: 57%;
-  margin: 0 0 75px;
-  min-width: 0;
+  width: 100%;
+  margin: 0 auto 35px;
+  text-align: center;
 }
 
 .hero-pretitle {
-  font: 500 clamp(19px,2vw,29px) var(--display);
-  margin: 0 0 25px;
+  margin: 0 0 14px;
+  font: 500 clamp(18px,2vw,29px) var(--display);
 }
 
 .hero-pretitle span {
@@ -263,18 +258,14 @@ h1, h2, h3, h4 {
 .hero h1 {
   margin: 0;
   font-weight: 700;
-  font-size: clamp(80px,10.3vw,171px);
+  font-size: clamp(66px,9.6vw,155px);
   line-height: .94;
-  letter-spacing: -.095em;
+  letter-spacing: -.09em;
 }
 
 .hero-title-line {
   display: block;
   white-space: nowrap;
-}
-
-.hero-title-mid {
-  margin-left: 24%;
 }
 
 .outlined {
@@ -288,73 +279,106 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   HERO PORTRAIT — CENTERED AND BRIGHT
+   PORTRAIT CENTERED HORIZONTALLY
 ========================================== */
 
+.hero-portrait-area {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 42px;
+  display: grid;
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(280px,420px)
+    minmax(0,1fr);
+  gap: clamp(20px,4vw,70px);
+  align-items: center;
+}
+
+/* NO RIGHT POSITIONING */
 .hero-portrait-wrap {
-  position: absolute;
-  right: 7%;
-  bottom: 11%;
-  width: min(37%, 530px);
-  height: 66%;
-  z-index: 1;
+  position: relative;
+  right: auto;
+  left: auto;
+  bottom: auto;
+  top: auto;
+
+  grid-column: 2;
+  width: 100%;
+  height: clamp(370px,37vw,510px);
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
   overflow: hidden;
 
   background: #f7f6f2;
-
-  border: 1px solid rgba(235,246,255,.18);
+  border: 1px solid rgba(235,246,255,.22);
 
   box-shadow:
-    0 25px 90px rgba(1,8,20,.3),
-    0 0 70px rgba(109,165,241,.13);
+    0 25px 90px rgba(1,8,20,.32),
+    0 0 90px rgba(109,165,241,.16);
 
   pointer-events: none;
 }
 
+/* CENTER PERSON INSIDE PORTRAIT */
 .hero-portrait {
-  display: block;
   width: 100%;
   height: 100%;
+  display: block;
 
   object-fit: cover;
-
-  /* CENTER PORTRAIT */
-  object-position: center 28%;
+  object-position: 50% 26%;
 
   filter:
-    brightness(1.10)
+    brightness(1.07)
     contrast(1.02)
-    saturate(1.08);
+    saturate(1.04);
 }
 
 .portrait-index {
   position: absolute;
-  top: 20px;
-  right: 14px;
+  top: 17px;
+  right: 13px;
   writing-mode: vertical-rl;
-
+  color: #526478;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .2em;
-
-  color: #eef5ff;
-  text-shadow: 0 1px 5px #0008;
 }
 
-.hero-sideword {
-  position: absolute;
-  right: 2vw;
-  top: 36%;
-  writing-mode: vertical-rl;
+/* SIDE DETAILS */
 
+.hero-side-detail {
+  min-width: 0;
+  color: #d2deeb;
+}
+
+.hero-side-detail > span {
+  display: block;
+  color: var(--acid);
   font-size: 10px;
-  letter-spacing: .2em;
-  color: #bbd0e7;
+  font-weight: 700;
+  letter-spacing: .16em;
+  margin-bottom: 14px;
+}
+
+.hero-side-detail p {
+  margin: 0;
+  font: 500 clamp(19px,2.4vw,32px)/1.3 var(--display);
+  letter-spacing: -.05em;
+}
+
+.hero-detail-left {
+  text-align: right;
+}
+
+.hero-detail-right {
+  text-align: left;
 }
 
 /* HERO FOOTER */
@@ -362,9 +386,10 @@ h1, h2, h3, h4 {
 .hero-bottom {
   position: relative;
   z-index: 3;
+  width: 100%;
 
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
   gap: 25px;
 
@@ -373,7 +398,7 @@ h1, h2, h3, h4 {
 }
 
 .hero-bottom p {
-  max-width: 380px;
+  max-width: 400px;
   margin: 0;
   color: #d0daea;
   font-size: 15px;
@@ -390,18 +415,12 @@ h1, h2, h3, h4 {
   width: 74px;
   height: 74px;
   flex: none;
-
   border: 1px solid #dfecff;
   border-radius: 50%;
-
   display: grid;
   place-items: center;
-
   font-size: 35px;
-
-  transition:
-    background .25s,
-    color .25s;
+  transition: background .25s,color .25s;
 }
 
 .round-arrow:hover {
@@ -410,7 +429,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   MOVING TICKER
+   TICKER
 ========================================== */
 
 .ticker {
@@ -423,9 +442,7 @@ h1, h2, h3, h4 {
   width: max-content;
   white-space: nowrap;
   padding: 14px 0;
-
   font: 700 clamp(19px,3vw,37px) var(--display);
-
   animation: tickerMove 32s linear infinite;
 }
 
@@ -436,7 +453,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   SHARED SECTION STYLES
+   SECTIONS
 ========================================== */
 
 .section {
@@ -448,10 +465,8 @@ h1, h2, h3, h4 {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-
   padding-top: 16px;
   border-top: 1px solid currentColor;
-
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .13em;
@@ -461,9 +476,7 @@ h1, h2, h3, h4 {
   color: #73818d;
 }
 
-/* ==========================================
-   ABOUT SECTION
-========================================== */
+/* ABOUT */
 
 .about {
   background: #f0f2ef;
@@ -562,7 +575,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   SKILLS SECTION
+   SKILLS
 ========================================== */
 
 .capabilities {
@@ -601,13 +614,9 @@ h1, h2, h3, h4 {
   grid-template-columns: 5% minmax(0,36%) 1fr 30px;
   align-items: center;
   gap: 22px;
-
   border-top: 1px solid #9cb1c2;
   padding: 35px 10px;
-
-  transition:
-    background .3s,
-    padding .3s;
+  transition: background .3s,padding .3s;
 }
 
 .cap-row:last-child {
@@ -647,9 +656,7 @@ h1, h2, h3, h4 {
 .cap-tags span {
   border: 1px solid #9bb0c4;
   border-radius: 40px;
-
   padding: 9px 13px;
-
   font-size: 12px;
   font-weight: 600;
 }
@@ -659,7 +666,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   PROJECTS SECTION
+   PROJECTS
 ========================================== */
 
 .work {
@@ -760,15 +767,12 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: space-between;
   gap: 26px;
-
   min-width: min(100%,295px);
   border-bottom: 1px solid currentColor;
   padding: 17px 0;
-
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .12em;
-
   transition: color .25s;
 }
 
@@ -781,7 +785,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   MATCHED PROJECT PREVIEW DIMENSIONS
+   MATCHED BROWSER WINDOWS
 ========================================== */
 
 .racos-stage,
@@ -789,9 +793,7 @@ h1, h2, h3, h4 {
   height: clamp(300px,43vw,580px);
   min-height: 0;
   position: relative;
-
   padding: 35px 7vw;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -806,31 +808,24 @@ h1, h2, h3, h4 {
   background: #132018;
 }
 
-/* WHITE BROWSER FRAMES */
-
 .browser-window {
   width: 100%;
   max-width: 1160px;
   overflow: hidden;
-
   background: #101823;
   border-radius: 14px 14px 0 0;
-
   box-shadow: 0 30px 90px rgba(0,0,0,.25);
 }
 
 .browser-top {
   height: 44px;
   padding: 0 18px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-
   background: #f3f5f5;
   color: #5d6c7a;
-
   font-size: 10px;
   letter-spacing: .06em;
 }
@@ -840,16 +835,24 @@ h1, h2, h3, h4 {
   white-space: nowrap;
 }
 
+.stage-note {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: #596d7f;
+}
+
 /* ==========================================
-   RACO'S PROJECT PREVIEW
+   RACO'S
 ========================================== */
 
 .racos-site {
   position: relative;
   isolation: isolate;
-
   height: clamp(220px,33vw,470px);
-
   overflow: hidden;
   background: #15212d;
 }
@@ -857,10 +860,8 @@ h1, h2, h3, h4 {
 .racos-banner {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
   object-position: center;
   z-index: -2;
@@ -870,21 +871,18 @@ h1, h2, h3, h4 {
   content: "";
   position: absolute;
   inset: 0;
-
   background: linear-gradient(
     90deg,
     rgba(8,16,27,.85),
     rgba(8,16,27,.48) 47%,
     rgba(8,16,27,.05)
   );
-
   z-index: -1;
 }
 
 .racos-overlay {
   position: relative;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   padding: clamp(18px,3vw,42px);
@@ -894,8 +892,8 @@ h1, h2, h3, h4 {
 .racos-brand {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
   align-items: center;
+  gap: 15px;
 }
 
 .racos-brand strong {
@@ -934,14 +932,11 @@ h1, h2, h3, h4 {
 
 .racos-actions span {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-
+  justify-content: center;
   min-width: 98px;
   padding: 10px 19px;
-
   border: 1px solid white;
-
   font-size: 12px;
   font-weight: 700;
 }
@@ -956,19 +951,8 @@ h1, h2, h3, h4 {
   background: white;
 }
 
-.stage-note {
-  position: absolute;
-  right: 20px;
-  bottom: 12px;
-
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  color: #596d7f;
-}
-
 /* ==========================================
-   STACK ME UP PROJECT
+   STACK ME UP
 ========================================== */
 
 .case-stack {
@@ -1025,27 +1009,18 @@ h1, h2, h3, h4 {
 .stack-stage {
   min-height: 590px;
   position: relative;
-
   display: grid;
   place-items: center;
   overflow: hidden;
-
   padding: 45px;
-
-  background: linear-gradient(
-    145deg,
-    #7598cc,
-    #263b80
-  );
+  background: linear-gradient(145deg,#7598cc,#263b80);
 }
 
 .stack-browser {
   width: 100%;
   max-width: 620px;
-
   background: #12204b;
   border: 7px solid #152a63;
-
   box-shadow: 20px 28px 65px #101c5680;
   transform: rotate(2deg);
 }
@@ -1053,12 +1028,9 @@ h1, h2, h3, h4 {
 .stack-bar {
   display: flex;
   justify-content: space-between;
-
   padding: 15px;
-
   background: #e4eafa;
   color: #202f6b;
-
   font-size: 11px;
   font-weight: 700;
 }
@@ -1067,13 +1039,8 @@ h1, h2, h3, h4 {
   position: relative;
   height: 440px;
   overflow: hidden;
-
   background:
-    radial-gradient(
-      circle at 50% 18%,
-      #4257b0,
-      transparent 65%
-    ),
+    radial-gradient(circle at 50% 18%,#4257b0,transparent 65%),
     #18245b;
 }
 
@@ -1081,7 +1048,6 @@ h1, h2, h3, h4 {
   position: absolute;
   top: 15px;
   left: 22px;
-
   color: white;
   font: 700 63px var(--display);
 }
@@ -1090,7 +1056,6 @@ h1, h2, h3, h4 {
   position: absolute;
   top: 30px;
   right: 20px;
-
   color: #d9e6ff;
   font-size: 9px;
   letter-spacing: .12em;
@@ -1101,7 +1066,6 @@ h1, h2, h3, h4 {
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-
   display: flex;
   align-items: center;
   flex-direction: column-reverse;
@@ -1148,7 +1112,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   SHADOW OF THE RIFT — BROWSER FRAME
+   SHADOW OF THE RIFT
 ========================================== */
 
 .case-rift {
@@ -1159,7 +1123,6 @@ h1, h2, h3, h4 {
   width: 100%;
   max-width: 1160px;
   margin: 0 auto;
-  background: #101823;
 }
 
 .rift-browser-content {
@@ -1173,8 +1136,6 @@ h1, h2, h3, h4 {
   display: block;
   width: 100%;
   height: 100%;
-
-  /* FILL BROWSER FRAME */
   object-fit: cover;
   object-position: center center;
 }
@@ -1205,28 +1166,23 @@ h1, h2, h3, h4 {
 .alerto-display {
   position: relative;
   min-height: 710px;
-
   display: grid;
   place-items: center;
   overflow: hidden;
-
-  background:
-    radial-gradient(
-      circle,
-      #286f9f,
-      #153d61 55%,
-      #0e2942
-    );
+  background: radial-gradient(
+    circle,
+    #286f9f,
+    #153d61 55%,
+    #0e2942
+  );
 }
 
 .alerto-display::before,
 .alerto-display::after {
   content: "";
   position: absolute;
-
   border: 1px solid #ffffff24;
   border-radius: 50%;
-
   width: 620px;
   height: 620px;
 }
@@ -1239,17 +1195,13 @@ h1, h2, h3, h4 {
 .phone {
   position: relative;
   z-index: 2;
-
   width: 312px;
   height: 635px;
   padding: 12px;
-
   border: 8px solid #090f17;
   border-radius: 48px;
-
   background: #07111b;
   box-shadow: 25px 35px 60px #0007;
-
   transform: rotate(-6deg);
 }
 
@@ -1257,10 +1209,8 @@ h1, h2, h3, h4 {
   position: relative;
   height: 100%;
   padding: 36px 19px 15px;
-
   overflow: hidden;
   border-radius: 32px;
-
   background: #eff7fc;
   color: #162d42;
 }
@@ -1269,10 +1219,8 @@ h1, h2, h3, h4 {
   position: absolute;
   top: 7px;
   left: 50%;
-
   width: 90px;
   height: 22px;
-
   transform: translateX(-50%);
   border-radius: 30px;
   background: #080e14;
@@ -1321,10 +1269,8 @@ h1, h2, h3, h4 {
 .app-upload {
   margin: 16px 0;
   padding: 14px 9px;
-
   border: 1px dashed #8dbde5;
   border-radius: 10px;
-
   background: #eaf4fc;
   color: #2277b0;
   font-size: 11px;
@@ -1359,11 +1305,9 @@ h1, h2, h3, h4 {
 
 .app-status > div {
   margin-top: 12px;
-
   display: flex;
   justify-content: space-between;
   gap: 10px;
-
   padding: 14px 10px;
   border-radius: 10px;
   background: white;
@@ -1378,7 +1322,6 @@ h1, h2, h3, h4 {
   left: 0;
   right: 0;
   bottom: 17px;
-
   text-align: center;
   letter-spacing: 22px;
   color: #4381a7;
@@ -1387,14 +1330,11 @@ h1, h2, h3, h4 {
 .alerto-technical {
   position: absolute;
   z-index: 3;
-
   max-width: 170px;
   display: grid;
   gap: 7px;
-
   border-top: 1px solid #ffffff70;
   padding-top: 15px;
-
   color: #e5f4ff;
   font-size: 12px;
 }
@@ -1440,13 +1380,12 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   INTERACTIVE CONTACT
+   CONTACT
 ========================================== */
 
 .contact {
   position: relative;
   padding: 100px 5vw 90px;
-
   background: #d6f57b;
   color: #142019;
 }
@@ -1486,20 +1425,15 @@ h1, h2, h3, h4 {
 .contact-mail,
 .copy-email {
   min-height: 64px;
-
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-
   border-radius: 100px;
   padding: 18px 27px;
-
   font: 700 12px var(--font);
   letter-spacing: .08em;
-
   cursor: pointer;
-
   transition:
     background .25s,
     color .25s,
@@ -1543,9 +1477,7 @@ h1, h2, h3, h4 {
   width: fit-content;
   max-width: 100%;
   margin-top: 42px;
-
   border-bottom: 1px solid currentColor;
-
   font: 600 clamp(20px,3vw,43px) var(--display);
   overflow-wrap: anywhere;
 }
@@ -1560,29 +1492,21 @@ h1, h2, h3, h4 {
   position: fixed;
   left: 50%;
   bottom: 25px;
-
   transform: translate(-50%,30px);
   z-index: 200;
-
   max-width: calc(100vw - 30px);
   padding: 13px 24px;
-
   border: 1px solid #d1fb72;
   border-radius: 100px;
-
   background: #13231b;
   color: #e7ffbe;
-
   box-shadow: 0 14px 50px #0005;
-
   text-align: center;
   font-size: 13px;
   font-weight: 700;
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-
   transition:
     opacity .3s,
     transform .3s,
@@ -1605,9 +1529,7 @@ h1, h2, h3, h4 {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
-
   padding: 36px 5vw;
-
   color: #a7b6c7;
   font-size: 12px;
 }
@@ -1617,14 +1539,13 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   SCROLL ANIMATIONS
+   REVEAL ANIMATIONS
 ========================================== */
 
 @media (min-width: 901px) {
   .js-motion .reveal {
     opacity: 0;
     transform: translateY(28px);
-
     transition:
       opacity .75s ease,
       transform .75s cubic-bezier(.2,.8,.2,1);
@@ -1637,26 +1558,32 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   TABLET RESPONSIVE
+   TABLET
 ========================================== */
 
 @media (max-width: 1100px) {
-  .hero-title-block {
-    width: 59%;
+  .header-note {
+    display: none;
   }
 
   .hero h1 {
-    font-size: clamp(73px,10.3vw,125px);
+    font-size: clamp(66px,9.5vw,116px);
+  }
+
+  .hero-portrait-area {
+    grid-template-columns:
+      minmax(0,1fr)
+      minmax(260px,370px)
+      minmax(0,1fr);
+    gap: 20px;
   }
 
   .hero-portrait-wrap {
-    right: 5%;
-    width: 40%;
-    height: 58%;
+    height: 445px;
   }
 
-  .header-note {
-    display: none;
+  .hero-side-detail p {
+    font-size: 20px;
   }
 
   .about-intro {
@@ -1683,7 +1610,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   MOBILE RESPONSIVE
+   MOBILE — CENTERED PORTRAIT
 ========================================== */
 
 @media (max-width: 750px) {
@@ -1695,15 +1622,12 @@ h1, h2, h3, h4 {
   .menu-toggle {
     position: relative;
     z-index: 35;
-
     width: 46px;
     height: 46px;
-
     display: grid;
     align-content: center;
     justify-content: center;
     gap: 7px;
-
     border: 1px solid #8da6c1;
     background: #142337;
     cursor: pointer;
@@ -1730,16 +1654,12 @@ h1, h2, h3, h4 {
     top: 73px;
     left: 0;
     right: 0;
-
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-
     max-height: calc(100dvh - 73px);
     overflow-y: auto;
-
     padding: 20px 6vw 30px;
-
     background: #102039;
     box-shadow: 0 20px 35px #0006;
   }
@@ -1754,15 +1674,13 @@ h1, h2, h3, h4 {
     font-size: 15px;
   }
 
-  /* MOBILE HERO */
+  /* HERO MOBILE */
 
   .hero {
-    min-height: 0;
-    padding: 150px 6vw 40px;
-
+    min-height: auto;
+    padding: 155px 6vw 40px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
   }
 
   .hero-topline {
@@ -1777,71 +1695,72 @@ h1, h2, h3, h4 {
   }
 
   .hero-title-block {
-    width: 100%;
-    margin: 15px 0 28px;
-    order: 1;
+    margin: 0 auto 24px;
+    text-align: center;
   }
 
   .hero-pretitle {
     font-size: clamp(18px,4.5vw,24px);
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .hero h1 {
-    font-size: clamp(50px,15.2vw,112px);
-    line-height: 1;
+    font-size: clamp(46px,12vw,88px);
+    line-height: 1.03;
     letter-spacing: -.09em;
-  }
-
-  .hero-title-mid {
-    margin-left: 11%;
   }
 
   .outlined {
     -webkit-text-stroke-width: 1.5px;
   }
 
-  /* MOBILE CENTERED PORTRAIT */
+  /* CENTER PHOTO ON MOBILE */
+
+  .hero-portrait-area {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 0 auto 28px;
+  }
 
   .hero-portrait-wrap {
     position: relative;
-    order: 2;
-
     right: auto;
+    left: auto;
     bottom: auto;
-    align-self: center;
-
-    width: min(85vw,410px);
-    height: clamp(315px,86vw,460px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    top: auto;
+    grid-column: auto;
+    width: min(83vw,360px);
+    height: clamp(315px,95vw,445px);
+    margin: 0 auto;
     flex: none;
-    margin: 0 0 25px;
   }
 
   .hero-portrait {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 24%;
+    object-position: center 25%;
+  }
+
+  .hero-side-detail {
+    display: none;
   }
 
   .hero-bottom {
-    order: 3;
     align-items: center;
     gap: 18px;
   }
 
   .hero-bottom p {
-    font-size: 13px;
     max-width: 75%;
+    font-size: 13px;
   }
 
-  .hero-identity,
-  .hero-sideword {
+  .hero-identity {
     display: none;
   }
 
@@ -1851,7 +1770,7 @@ h1, h2, h3, h4 {
     font-size: 28px;
   }
 
-  /* MOBILE ABOUT */
+  /* ABOUT MOBILE */
 
   .section {
     padding: 75px 6vw;
@@ -1892,7 +1811,7 @@ h1, h2, h3, h4 {
     margin: 55px 0 0;
   }
 
-  /* MOBILE SKILLS */
+  /* SKILLS MOBILE */
 
   .cap-head {
     display: block;
@@ -1927,7 +1846,7 @@ h1, h2, h3, h4 {
     font-size: 11px;
   }
 
-  /* MOBILE PROJECTS */
+  /* PROJECTS MOBILE */
 
   .work-heading-row {
     display: block;
@@ -1961,8 +1880,6 @@ h1, h2, h3, h4 {
   .case-detail > p {
     font-size: 15px;
   }
-
-  /* SAME BANNER SIZE ON MOBILE */
 
   .racos-stage,
   .rift-stage {
@@ -2004,7 +1921,7 @@ h1, h2, h3, h4 {
     font-size: 10px;
   }
 
-  /* MOBILE STACK ME UP */
+  /* STACK MOBILE */
 
   .stack-layout {
     grid-template-columns: 1fr;
@@ -2038,7 +1955,7 @@ h1, h2, h3, h4 {
     font-size: clamp(52px,12vw,85px);
   }
 
-  /* MOBILE ALERTO */
+  /* ALERTO MOBILE */
 
   .alerto-layout {
     grid-template-columns: 1fr;
@@ -2075,7 +1992,7 @@ h1, h2, h3, h4 {
     font-size: clamp(65px,14vw,105px);
   }
 
-  /* MOBILE CONTACT */
+  /* CONTACT MOBILE */
 
   .contact {
     padding: 80px 6vw;
@@ -2127,17 +2044,17 @@ h1, h2, h3, h4 {
   }
 
   .hero h1 {
-    font-size: 15.1vw;
+    font-size: 11.8vw;
   }
 
   .hero-portrait-wrap {
-    width: 86vw;
-    height: 92vw;
-    max-height: 400px;
+    width: 84vw;
+    height: 106vw;
+    max-height: 440px;
   }
 
   .hero-portrait {
-    object-position: center 24%;
+    object-position: center 25%;
   }
 
   .hero-bottom p {
@@ -2239,7 +2156,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================
-   REDUCED MOTION ACCESSIBILITY
+   REDUCED MOTION
 ========================================== */
 
 @media (prefers-reduced-motion: reduce) {
