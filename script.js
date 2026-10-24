@@ -21,7 +21,7 @@
   const year = $("#year");
 
   if (year) {
-    year.textContent = String(new Date().getFullYear());
+    year.textContent = new Date().getFullYear();
   }
 
   // MOBILE NAVIGATION
@@ -42,10 +42,7 @@
     const isOpen =
       toggle.getAttribute("aria-expanded") !== "true";
 
-    toggle.setAttribute(
-      "aria-expanded",
-      String(isOpen)
-    );
+    toggle.setAttribute("aria-expanded", String(isOpen));
 
     toggle.setAttribute(
       "aria-label",
@@ -64,9 +61,7 @@
   });
 
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-      closeMenu();
-    }
+    if (event.key === "Escape") closeMenu();
   });
 
   document.addEventListener("pointerdown", event => {
@@ -80,59 +75,46 @@
     }
   });
 
-  window.addEventListener(
-    "resize",
-    () => {
-      if (window.innerWidth > 750) {
-        closeMenu();
-      }
-    },
-    { passive: true }
-  );
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 750) closeMenu();
+  });
 
   // SCROLL PROGRESS
 
   const progress = $(".scroll-progress");
-  let scrolling = false;
+  let ticking = false;
 
   function updateProgress() {
-    const total =
+    const max =
       document.documentElement.scrollHeight -
       window.innerHeight;
 
     if (progress) {
-      const percentage =
-        total > 0
-          ? Math.min(
-              100,
-              (window.scrollY / total) * 100
-            )
+      const percent =
+        max > 0
+          ? Math.min(100, (window.scrollY / max) * 100)
           : 0;
 
-      progress.style.width = `${percentage}%`;
+      progress.style.width = `${percent}%`;
     }
 
-    scrolling = false;
+    ticking = false;
   }
 
   function requestProgress() {
-    if (!scrolling) {
-      scrolling = true;
+    if (!ticking) {
+      ticking = true;
       requestAnimationFrame(updateProgress);
     }
   }
 
-  window.addEventListener(
-    "scroll",
-    requestProgress,
-    { passive: true }
-  );
+  window.addEventListener("scroll", requestProgress, {
+    passive: true
+  });
 
-  window.addEventListener(
-    "resize",
-    requestProgress,
-    { passive: true }
-  );
+  window.addEventListener("resize", requestProgress, {
+    passive: true
+  });
 
   updateProgress();
 
@@ -141,56 +123,47 @@
   if ("IntersectionObserver" in window) {
     const links = $$('#site-nav a[href^="#"]');
 
-    const navigationObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
 
-          links.forEach(link => {
-            const active =
-              link.getAttribute("href") ===
-              `#${entry.target.id}`;
+        links.forEach(link => {
+          const active =
+            link.getAttribute("href") ===
+            `#${entry.target.id}`;
 
-            link.classList.toggle("active", active);
+          link.classList.toggle("active", active);
 
-            if (active) {
-              link.setAttribute(
-                "aria-current",
-                "location"
-              );
-            } else {
-              link.removeAttribute("aria-current");
-            }
-          });
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
         });
-      },
-      {
-        rootMargin: "-20% 0px -60% 0px",
-        threshold: 0
-      }
-    );
+      });
+    }, {
+      rootMargin: "-20% 0px -60% 0px"
+    });
 
     $$("main section[id]").forEach(section => {
-      navigationObserver.observe(section);
+      spy.observe(section);
     });
   }
 
-  // SECTION REVEAL ANIMATION
+  // REVEAL ANIMATIONS
 
   if (
     !reducedMotion.matches &&
     "IntersectionObserver" in window &&
     window.innerWidth > 900
   ) {
-    const revealElements = $$(".reveal");
-
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
+    const observer = new IntersectionObserver(
+      (entries, instance) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
 
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          instance.unobserve(entry.target);
         });
       },
       {
@@ -199,36 +172,27 @@
       }
     );
 
-    revealElements.forEach(element => {
-      revealObserver.observe(element);
+    $$(".reveal").forEach(element => {
+      observer.observe(element);
     });
 
     document.documentElement.classList.add("js-motion");
   }
 
-  // MAGNETIC BUTTON EFFECT
+  // MAGNETIC BUTTONS
 
-  if (
-    finePointer.matches &&
-    !reducedMotion.matches
-  ) {
+  if (finePointer.matches && !reducedMotion.matches) {
     $$(".magnetic").forEach(element => {
       element.addEventListener("pointermove", event => {
-        const rect =
-          element.getBoundingClientRect();
+        const rect = element.getBoundingClientRect();
 
         const x =
-          (event.clientX -
-            rect.left -
-            rect.width / 2) * 0.12;
+          (event.clientX - rect.left - rect.width / 2) * 0.12;
 
         const y =
-          (event.clientY -
-            rect.top -
-            rect.height / 2) * 0.12;
+          (event.clientY - rect.top - rect.height / 2) * 0.12;
 
-        element.style.translate =
-          `${x}px ${y}px`;
+        element.style.translate = `${x}px ${y}px`;
       });
 
       element.addEventListener("pointerleave", () => {
@@ -236,34 +200,27 @@
       });
     });
 
-    // PORTRAIT PARALLAX
+    // HERO PORTRAIT MOVEMENT
 
     const portrait = $("[data-parallax]");
     const hero = portrait?.closest(".hero");
 
     hero?.addEventListener("pointermove", event => {
-      if (!portrait || window.innerWidth <= 750) {
-        return;
-      }
+      if (!portrait || window.innerWidth <= 750) return;
 
       const rect = hero.getBoundingClientRect();
 
       const x =
-        ((event.clientX - rect.left) /
-          rect.width - 0.5) * 10;
+        ((event.clientX - rect.left) / rect.width - 0.5) * 10;
 
       const y =
-        ((event.clientY - rect.top) /
-          rect.height - 0.5) * 8;
+        ((event.clientY - rect.top) / rect.height - 0.5) * 8;
 
-      portrait.style.translate =
-        `${x}px ${y}px`;
+      portrait.style.translate = `${x}px ${y}px`;
     });
 
     hero?.addEventListener("pointerleave", () => {
-      if (portrait) {
-        portrait.style.translate = "";
-      }
+      if (portrait) portrait.style.translate = "";
     });
 
     // CURSOR GLOW
@@ -271,48 +228,124 @@
     const glow = $(".cursor-glow");
 
     if (glow) {
-      let frameRequested = false;
+      let scheduled = false;
+      let x = 0;
+      let y = 0;
 
-      window.addEventListener(
-        "pointermove",
-        event => {
-          const x = event.clientX;
-          const y = event.clientY;
+      window.addEventListener("pointermove", event => {
+        x = event.clientX;
+        y = event.clientY;
 
-          if (frameRequested) return;
+        if (scheduled) return;
 
-          frameRequested = true;
+        scheduled = true;
 
-          requestAnimationFrame(() => {
-            glow.style.left = `${x}px`;
-            glow.style.top = `${y}px`;
-            frameRequested = false;
-          });
-        },
-        { passive: true }
-      );
+        requestAnimationFrame(() => {
+          glow.style.left = `${x}px`;
+          glow.style.top = `${y}px`;
+          scheduled = false;
+        });
+      }, { passive: true });
     }
   }
 
-  // HANDLE MISSING IMAGE ASSETS
+  // INTERACTIVE EMAIL BUTTONS
 
-  $$(".hero-portrait, .rift-stage img, .racos-banner")
-    .forEach(image => {
-      image.addEventListener("error", () => {
-        console.warn(
-          "Portfolio image not found:",
-          image.getAttribute("src")
-        );
-      });
+  const email = "justinelargo8@gmail.com";
+  const copyButton = $("#copyEmail");
+  const copyText = $("#copyEmailText");
+  const copyIcon = $("#copyEmailIcon");
+  const toast = $("#emailToast");
 
-      if (
-        image.complete &&
-        image.naturalWidth === 0
-      ) {
-        console.warn(
-          "Portfolio image not found:",
-          image.getAttribute("src")
-        );
+  let toastTimer;
+  let resetTimer;
+
+  function showToast(message) {
+    if (!toast) return;
+
+    clearTimeout(toastTimer);
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3200);
+  }
+
+  async function copyEmail() {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const temporary = document.createElement("textarea");
+        temporary.value = email;
+        temporary.setAttribute("readonly", "");
+        temporary.style.position = "fixed";
+        temporary.style.opacity = "0";
+        document.body.appendChild(temporary);
+        temporary.select();
+
+        const copied = document.execCommand("copy");
+        temporary.remove();
+
+        if (!copied) {
+          throw new Error("Clipboard unavailable");
+        }
       }
-    });
+
+      if (copyText) copyText.textContent = "EMAIL COPIED!";
+      if (copyIcon) copyIcon.textContent = "✓";
+
+      copyButton?.classList.add("copied");
+
+      showToast("Email address copied to clipboard!");
+
+      clearTimeout(resetTimer);
+
+      resetTimer = setTimeout(() => {
+        if (copyText) {
+          copyText.textContent = "COPY EMAIL ADDRESS";
+        }
+
+        if (copyIcon) copyIcon.textContent = "⧉";
+
+        copyButton?.classList.remove("copied");
+      }, 3000);
+
+    } catch (error) {
+      showToast("Copy failed. Select the email address below instead.");
+    }
+  }
+
+  copyButton?.addEventListener("click", copyEmail);
+
+  // MAILTO: DO NOT BLOCK THE LINK
+
+  const sendEmail = $("#sendEmail");
+
+  sendEmail?.addEventListener("click", () => {
+    showToast(
+      "Opening your email app. If nothing opens, use Copy Email Address."
+    );
+  });
+
+  // IMAGE LOADING WARNINGS
+
+  $$(
+    ".hero-portrait, .rift-stage img, .racos-banner"
+  ).forEach(image => {
+    const reportMissing = () => {
+      console.warn(
+        "Missing portfolio image:",
+        image.getAttribute("src")
+      );
+    };
+
+    image.addEventListener("error", reportMissing);
+
+    if (image.complete && image.naturalWidth === 0) {
+      reportMissing();
+    }
+  });
 })();
