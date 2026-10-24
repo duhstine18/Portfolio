@@ -1,72 +1,372 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <meta name="description" content="Justine Kim Largo — IT student, aspiring developer and creative thinker.">
+
+  <meta name="description"
+    content="Justine Kim Largo — IT Student, Aspiring Developer, and Creative Thinker.">
+
   <title>Justine Kim Largo — Portfolio</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
+
+  <!-- NAVIGATION -->
   <header class="header">
-    <a class="logo" href="#home">JUSTINE<span>.</span></a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#home" class="active">HOME</a>
+
+    <a class="logo" href="#home">
+      JUSTINE<span>.</span>
+    </a>
+
+    <button class="menu-toggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-controls="site-nav"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="nav" id="site-nav">
+      <a href="#home">HOME</a>
       <a href="#projects">PORTFOLIO</a>
       <a href="#about">ABOUT</a>
       <a href="#contact">CONTACT</a>
     </nav>
-    <a class="header-button" href="#contact">LET'S WORK</a>
+
+    <a class="header-button" href="#contact">
+      LET'S WORK
+    </a>
+
   </header>
 
-  <!-- Scroll over the pinned hero to play the supplied 240-frame portrait sequence. -->
+
   <main>
-    <section id="home" class="hero-scroll" aria-label="Introduction">
+
+    <!-- ==========================
+         HERO SECTION
+    =========================== -->
+
+    <section id="home" class="hero-scroll">
+
       <div class="hero-sticky">
-        <canvas id="portrait-sequence" aria-label="Animated portrait of Justine Kim Largo" role="img"></canvas>
-        <div class="hero-shade" aria-hidden="true"></div>
+
+        <canvas id="portrait-sequence"
+          role="img"
+          aria-label="Animated portrait of Justine Kim Largo">
+        </canvas>
+
+        <div class="hero-shade"></div>
+
         <div class="hero-content">
-          <p class="eyebrow">HELLO, I'M JUSTINE <span>────</span></p>
-          <h1>CREATING<br>THINGS THAT<br>SPEAK.</h1>
-          <p class="hero-summary">IT student, aspiring developer, and creative thinker. I build interactive digital experiences and practical web applications.</p>
-          <a class="outline-button" href="#projects">VIEW PORTFOLIO</a>
+
+          <p class="eyebrow">
+            HELLO, I'M JUSTINE
+            <span>────</span>
+          </p>
+
+          <h1>
+            CREATING<br>
+            THINGS THAT<br>
+            SPEAK.
+          </h1>
+
+          <p class="hero-summary">
+            IT student, aspiring developer, and creative thinker.
+            I build interactive digital experiences and
+            practical web applications.
+          </p>
+
+          <a href="#projects" class="outline-button">
+            VIEW PORTFOLIO ↗
+          </a>
+
         </div>
-        <div class="hero-bottom"><span>DEVELOPMENT&nbsp; / &nbsp;DESIGN&nbsp; / &nbsp;CREATIVITY</span><span>SCROLL TO EXPLORE ↓</span></div>
+
+        <div class="hero-bottom">
+          <span>DEVELOPMENT / DESIGN / CREATIVITY</span>
+          <span>SCROLL TO EXPLORE ↓</span>
+        </div>
+
       </div>
+
     </section>
+
+
+    <!-- ==========================
+         SELECTED WORKS
+    =========================== -->
 
     <section id="projects" class="work-section">
+
       <div class="section-inner">
+
         <div class="section-heading reveal">
-          <div><p class="eyebrow dark">MY WORK <span>────</span></p><h2>SELECTED WORKS</h2></div>
-          <p class="subheading">WEB DEVELOPMENT / GAMES / AI</p>
+
+          <div>
+            <p class="eyebrow dark">
+              MY WORK <span>────</span>
+            </p>
+
+            <h2>SELECTED WORKS</h2>
+          </div>
+
+          <p class="subheading">
+            WEB DEVELOPMENT / GAMES / AI
+          </p>
+
         </div>
+
+
         <div class="work-grid">
-          <a class="work-item reveal" href="https://github.com/duhstine18/RACOS.git" target="_blank" rel="noopener noreferrer"><div class="work-art art-racos"><span>RACOS</span></div><div class="work-meta"><h3>RACOS</h3><span>PHP / MySQL ↗</span></div></a>
-          <a class="work-item reveal" href="https://github.com/duhstine18/STACK-ME-UP.git" target="_blank" rel="noopener noreferrer"><div class="work-art art-stack"><span>STACK<br>ME UP</span></div><div class="work-meta"><h3>STACK ME UP</h3><span>JavaScript / Canvas ↗</span></div></a>
-          <a class="work-item reveal" href="https://github.com/duhstine18/ShadowOfTheRift.git" target="_blank" rel="noopener noreferrer"><div class="work-art art-rift"><span>SHADOW<br>OF THE RIFT</span></div><div class="work-meta"><h3>SHADOW OF THE RIFT</h3><span>Python / Pygame ↗</span></div></a>
-          <div class="work-item reveal"><div class="work-art art-alerto"><span>ALERTO</span></div><div class="work-meta"><h3>ALERTO</h3><span>Flutter / AI / PHP</span></div></div>
+
+          <!-- PROJECT 01 RACOS -->
+
+          <a class="work-item reveal"
+            href="https://github.com/duhstine18/RACOS.git"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            <div class="work-art art-racos">
+
+              <span class="fallback-title">RACOS</span>
+
+              <img
+                src="images/racos-car.png"
+                alt="RACOS project website preview"
+                loading="lazy"
+                onerror="this.style.display='none'">
+
+            </div>
+
+            <div class="work-meta">
+              <h3>RACOS</h3>
+              <span>PHP / MySQL ↗</span>
+            </div>
+
+          </a>
+
+
+          <!-- PROJECT 02 STACK ME UP -->
+
+          <a class="work-item reveal"
+            href="https://github.com/duhstine18/STACK-ME-UP.git"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            <div class="work-art art-stack">
+
+              <div class="stack-preview">
+
+                <div class="game-top">
+                  <span>STACK ME UP</span>
+                  <span>BEST 009</span>
+                </div>
+
+                <div class="game-score">005</div>
+
+                <div class="stack-scene">
+
+                  <div class="moving-block"></div>
+
+                  <div class="block-tower">
+
+                    <div class="game-block block-5"></div>
+                    <div class="game-block block-4"></div>
+                    <div class="game-block block-3"></div>
+                    <div class="game-block block-2"></div>
+                    <div class="game-block block-1"></div>
+
+                  </div>
+
+                  <div class="game-floor"></div>
+
+                </div>
+
+                <div class="game-caption">
+                  TIMING IS EVERYTHING
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="work-meta">
+              <h3>STACK ME UP</h3>
+              <span>JavaScript / Canvas ↗</span>
+            </div>
+
+          </a>
+
+
+          <!-- PROJECT 03 SHADOW OF THE RIFT -->
+
+          <a class="work-item reveal"
+            href="https://github.com/duhstine18/ShadowOfTheRift.git"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            <div class="work-art art-rift">
+
+              <span class="fallback-title">
+                SHADOW<br>OF THE RIFT
+              </span>
+
+              <img
+                src="images/shadow-of-the-rift.png"
+                alt="Shadow of the Rift game"
+                loading="lazy"
+                onerror="this.style.display='none'">
+
+            </div>
+
+            <div class="work-meta">
+              <h3>SHADOW OF THE RIFT</h3>
+              <span>Python / Pygame ↗</span>
+            </div>
+
+          </a>
+
+
+          <!-- PROJECT 04 ALERTO -->
+
+          <div class="work-item reveal">
+
+            <div class="work-art art-alerto">
+
+              <span class="fallback-title">
+                ALERTO
+              </span>
+
+              <img
+                src="images/alerto.png"
+                alt="ALERTO AI incident reporting system"
+                loading="lazy"
+                onerror="this.style.display='none'">
+
+            </div>
+
+            <div class="work-meta">
+              <h3>ALERTO</h3>
+              <span>Flutter / AI / PHP</span>
+            </div>
+
+          </div>
+
         </div>
       </div>
+
     </section>
+
+
+    <!-- ==========================
+         ABOUT SECTION
+    =========================== -->
 
     <section id="about" class="about-section">
+
       <div class="section-inner about-grid">
-        <div class="reveal"><p class="eyebrow">ABOUT ME <span>────</span></p><h2>I'M JUSTINE.<br>A CREATIVE<br>DEVELOPER.</h2></div>
-        <div class="about-text reveal"><p>I'm Justine Kim Largo, an Information Technology student passionate about web development, programming, and creating interactive digital experiences.</p><p>I enjoy transforming ideas into functional applications, exploring new technologies, and developing solutions to real-world problems.</p><a class="outline-button" href="#contact">LET'S WORK TOGETHER</a></div>
+
+        <div class="reveal">
+
+          <p class="eyebrow">
+            ABOUT ME <span>────</span>
+          </p>
+
+          <h2>
+            I'M JUSTINE.<br>
+            A CREATIVE<br>
+            DEVELOPER.
+          </h2>
+
+        </div>
+
+        <div class="about-text reveal">
+
+          <p>
+            I'm Justine Kim Largo, an Information Technology
+            student passionate about web development,
+            programming, and creating interactive
+            digital experiences.
+          </p>
+
+          <p>
+            I enjoy transforming ideas into functional
+            applications, exploring new technologies,
+            and developing solutions to real-world problems.
+          </p>
+
+          <a href="#contact" class="outline-button">
+            LET'S WORK TOGETHER ↗
+          </a>
+
+        </div>
+
       </div>
+
     </section>
 
+
+    <!-- ==========================
+         CONTACT SECTION
+    =========================== -->
+
     <footer id="contact" class="footer">
-      <div class="section-inner footer-inner reveal"><div><p class="eyebrow">HAVE A PROJECT IN MIND?</p><h2>LET'S CONNECT.</h2></div><a class="outline-button" href="https://github.com/duhstine18" target="_blank" rel="noopener noreferrer">VISIT MY GITHUB ↗</a></div>
-      <div class="section-inner footer-bottom"><span>© <span id="year"></span> JUSTINE KIM LARGO</span><a href="#home">BACK TO TOP ↑</a></div>
+
+      <div class="section-inner footer-inner reveal">
+
+        <div>
+
+          <p class="eyebrow">
+            HAVE A PROJECT IN MIND?
+          </p>
+
+          <h2>LET'S CONNECT.</h2>
+
+          <p class="contact-description">
+            Have a question, project, or collaboration in mind?
+            Feel free to send me a message.
+          </p>
+
+        </div>
+
+        <a
+          class="outline-button contact-button"
+          href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=YOUR_EMAIL@gmail.com&amp;su=Portfolio%20Inquiry"
+          target="_blank"
+          rel="noopener noreferrer">
+
+          SEND ME AN EMAIL ↗
+
+        </a>
+
+      </div>
+
+      <div class="section-inner footer-bottom">
+
+        <span>
+          © <span id="year">2026</span> JUSTINE KIM LARGO
+        </span>
+
+        <a href="#home">
+          BACK TO TOP ↑
+        </a>
+
+      </div>
+
     </footer>
+
   </main>
+
 </body>
 </html>
