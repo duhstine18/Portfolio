@@ -1,351 +1,432 @@
 
-(() => {
-  "use strict";
+"use strict";
 
-  const $ = (selector, root = document) =>
-    root.querySelector(selector);
+/* =========================================
+   PORTRAIT SCROLL ANIMATION
+========================================= */
 
-  const $$ = (selector, root = document) =>
-    Array.from(root.querySelectorAll(selector));
+const TOTAL_FRAMES = 240;
 
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  );
+const canvas = document.getElementById(
+  "portrait-sequence"
+);
 
-  const finePointer = window.matchMedia(
-    "(hover: hover) and (pointer: fine)"
-  );
+const ctx = canvas.getContext("2d", {
+  alpha: false
+});
 
-  // CURRENT YEAR
+const hero = document.querySelector(".hero-scroll");
 
-  const year = $("#year");
+const frames = new Array(TOTAL_FRAMES);
 
-  if (year) {
-    year.textContent = new Date().getFullYear();
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+let desiredFrame = 0;
+let renderedFrame = -1;
+let rafPending = false;
+
+let viewWidth = 0;
+let viewHeight = 0;
+
+/* FRAME PATH */
+
+function framePath(index) {
+  const number = String(index + 1).padStart(3, "0");
+
+  return `frames/ezgif-frame-${number}.jpg`;
+}
+
+/* LOAD FRAMES */
+
+function loadFrame(index) {
+
+  if (index < 0 || index >= TOTAL_FRAMES) {
+    return;
   }
 
-  // MOBILE NAVIGATION
-
-  const toggle = $(".menu-toggle");
-  const nav = $("#site-nav");
-
-  function closeMenu() {
-    if (!toggle || !nav) return;
-
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Open navigation");
-
-    nav.classList.remove("is-open");
+  if (frames[index]) {
+    return;
   }
 
-  toggle?.addEventListener("click", () => {
-    const isOpen =
-      toggle.getAttribute("aria-expanded") !== "true";
+  const img = new Image();
 
-    toggle.setAttribute("aria-expanded", String(isOpen));
+  frames[index] = img;
+  img.decoding = "async";
 
-    toggle.setAttribute(
-      "aria-label",
-      isOpen ? "Close navigation" : "Open navigation"
-    );
-
-    nav?.classList.toggle("is-open", isOpen);
-
-    if (isOpen) {
-      nav?.querySelector("a")?.focus();
-    }
-  });
-
-  $$("#site-nav a").forEach(link => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeMenu();
-  });
-
-  document.addEventListener("pointerdown", event => {
-    if (!nav || !toggle) return;
+  img.onload = () => {
 
     if (
-      !nav.contains(event.target) &&
-      !toggle.contains(event.target)
+      index === desiredFrame ||
+      renderedFrame < 0
     ) {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 750) closeMenu();
-  });
-
-  // SCROLL PROGRESS
-
-  const progress = $(".scroll-progress");
-  let ticking = false;
-
-  function updateProgress() {
-    const max =
-      document.documentElement.scrollHeight -
-      window.innerHeight;
-
-    if (progress) {
-      const percent =
-        max > 0
-          ? Math.min(100, (window.scrollY / max) * 100)
-          : 0;
-
-      progress.style.width = `${percent}%`;
+      requestDraw();
     }
 
-    ticking = false;
+  };
+
+  img.onerror = () => {
+    frames[index] = null;
+  };
+
+  img.src = framePath(index);
+}
+
+/* DRAW FRAME */
+
+function drawFrame() {
+
+  rafPending = false;
+
+  if (!viewWidth || !viewHeight) {
+    return;
   }
 
-  function requestProgress() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateProgress);
-    }
-  }
-
-  window.addEventListener("scroll", requestProgress, {
-    passive: true
-  });
-
-  window.addEventListener("resize", requestProgress, {
-    passive: true
-  });
-
-  updateProgress();
-
-  // ACTIVE NAVIGATION
-
-  if ("IntersectionObserver" in window) {
-    const links = $$('#site-nav a[href^="#"]');
-
-    const spy = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-
-        links.forEach(link => {
-          const active =
-            link.getAttribute("href") ===
-            `#${entry.target.id}`;
-
-          link.classList.toggle("active", active);
-
-          if (active) {
-            link.setAttribute("aria-current", "location");
-          } else {
-            link.removeAttribute("aria-current");
-          }
-        });
-      });
-    }, {
-      rootMargin: "-20% 0px -60% 0px"
-    });
-
-    $$("main section[id]").forEach(section => {
-      spy.observe(section);
-    });
-  }
-
-  // REVEAL ANIMATIONS
+  let index = desiredFrame;
 
   if (
-    !reducedMotion.matches &&
-    "IntersectionObserver" in window &&
-    window.innerWidth > 900
+    !frames[index]?.complete ||
+    !frames[index]?.naturalWidth
   ) {
-    const observer = new IntersectionObserver(
-      (entries, instance) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
 
-          entry.target.classList.add("is-visible");
-          instance.unobserve(entry.target);
-        });
-      },
-      {
-        threshold: 0.06,
-        rootMargin: "0px 0px -20px 0px"
+    let bestDistance = Infinity;
+
+    for (let i = 0; i < TOTAL_FRAMES; i++) {
+
+      if (
+        frames[i]?.complete &&
+        frames[i]?.naturalWidth
+      ) {
+
+        const distance = Math.abs(
+          i - desiredFrame
+        );
+
+        if (distance < bestDistance) {
+
+          index = i;
+          bestDistance = distance;
+
+        }
       }
-    );
+    }
 
-    $$(".reveal").forEach(element => {
-      observer.observe(element);
-    });
-
-    document.documentElement.classList.add("js-motion");
-  }
-
-  // MAGNETIC BUTTONS
-
-  if (finePointer.matches && !reducedMotion.matches) {
-    $$(".magnetic").forEach(element => {
-      element.addEventListener("pointermove", event => {
-        const rect = element.getBoundingClientRect();
-
-        const x =
-          (event.clientX - rect.left - rect.width / 2) * 0.12;
-
-        const y =
-          (event.clientY - rect.top - rect.height / 2) * 0.12;
-
-        element.style.translate = `${x}px ${y}px`;
-      });
-
-      element.addEventListener("pointerleave", () => {
-        element.style.translate = "";
-      });
-    });
-
-    // HERO PORTRAIT MOVEMENT
-
-    const portrait = $("[data-parallax]");
-    const hero = portrait?.closest(".hero");
-
-    hero?.addEventListener("pointermove", event => {
-      if (!portrait || window.innerWidth <= 750) return;
-
-      const rect = hero.getBoundingClientRect();
-
-      const x =
-        ((event.clientX - rect.left) / rect.width - 0.5) * 10;
-
-      const y =
-        ((event.clientY - rect.top) / rect.height - 0.5) * 8;
-
-      portrait.style.translate = `${x}px ${y}px`;
-    });
-
-    hero?.addEventListener("pointerleave", () => {
-      if (portrait) portrait.style.translate = "";
-    });
-
-    // CURSOR GLOW
-
-    const glow = $(".cursor-glow");
-
-    if (glow) {
-      let scheduled = false;
-      let x = 0;
-      let y = 0;
-
-      window.addEventListener("pointermove", event => {
-        x = event.clientX;
-        y = event.clientY;
-
-        if (scheduled) return;
-
-        scheduled = true;
-
-        requestAnimationFrame(() => {
-          glow.style.left = `${x}px`;
-          glow.style.top = `${y}px`;
-          scheduled = false;
-        });
-      }, { passive: true });
+    if (bestDistance === Infinity) {
+      return;
     }
   }
 
-  // INTERACTIVE EMAIL BUTTONS
-
-  const email = "justinelargo8@gmail.com";
-  const copyButton = $("#copyEmail");
-  const copyText = $("#copyEmailText");
-  const copyIcon = $("#copyEmailIcon");
-  const toast = $("#emailToast");
-
-  let toastTimer;
-  let resetTimer;
-
-  function showToast(message) {
-    if (!toast) return;
-
-    clearTimeout(toastTimer);
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    toastTimer = setTimeout(() => {
-      toast.classList.remove("show");
-    }, 3200);
+  if (index === renderedFrame) {
+    return;
   }
 
-  async function copyEmail() {
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(email);
-      } else {
-        const temporary = document.createElement("textarea");
-        temporary.value = email;
-        temporary.setAttribute("readonly", "");
-        temporary.style.position = "fixed";
-        temporary.style.opacity = "0";
-        document.body.appendChild(temporary);
-        temporary.select();
+  const img = frames[index];
 
-        const copied = document.execCommand("copy");
-        temporary.remove();
+  const ratio = Math.max(
+    viewWidth / img.naturalWidth,
+    viewHeight / img.naturalHeight
+  );
 
-        if (!copied) {
-          throw new Error("Clipboard unavailable");
-        }
-      }
+  const width = img.naturalWidth * ratio;
+  const height = img.naturalHeight * ratio;
 
-      if (copyText) copyText.textContent = "EMAIL COPIED!";
-      if (copyIcon) copyIcon.textContent = "✓";
+  const shift =
+    viewWidth > 850
+      ? Math.min(viewWidth * .12, 185)
+      : viewWidth * .12;
 
-      copyButton?.classList.add("copied");
+  const x = (viewWidth - width) / 2 + shift;
+  const y = (viewHeight - height) / 2;
 
-      showToast("Email address copied to clipboard!");
+  ctx.fillStyle = "#060606";
+  ctx.fillRect(0, 0, viewWidth, viewHeight);
 
-      clearTimeout(resetTimer);
+  ctx.drawImage(
+    img,
+    x,
+    y,
+    width,
+    height
+  );
 
-      resetTimer = setTimeout(() => {
-        if (copyText) {
-          copyText.textContent = "COPY EMAIL ADDRESS";
-        }
+  renderedFrame = index;
+}
 
-        if (copyIcon) copyIcon.textContent = "⧉";
+/* DRAW REQUEST */
 
-        copyButton?.classList.remove("copied");
-      }, 3000);
+function requestDraw() {
 
-    } catch (error) {
-      showToast("Copy failed. Select the email address below instead.");
+  if (rafPending) {
+    return;
+  }
+
+  rafPending = true;
+
+  requestAnimationFrame(drawFrame);
+}
+
+/* RESIZE CANVAS */
+
+function resizeCanvas() {
+
+  viewWidth = canvas.clientWidth;
+  viewHeight = canvas.clientHeight;
+
+  const dpr = Math.min(
+    window.devicePixelRatio || 1,
+    2
+  );
+
+  canvas.width = Math.round(viewWidth * dpr);
+  canvas.height = Math.round(viewHeight * dpr);
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  renderedFrame = -1;
+
+  requestDraw();
+}
+
+/* UPDATE SCROLL ANIMATION */
+
+function updateSequence() {
+
+  if (reducedMotion) {
+    return;
+  }
+
+  const distance =
+    hero.offsetHeight - window.innerHeight;
+
+  const progress = Math.min(
+    1,
+    Math.max(
+      0,
+      -hero.getBoundingClientRect().top /
+        Math.max(distance, 1)
+    )
+  );
+
+  const nextFrame = Math.round(
+    progress * (TOTAL_FRAMES - 1)
+  );
+
+  if (nextFrame === desiredFrame) {
+    return;
+  }
+
+  desiredFrame = nextFrame;
+
+  loadFrame(nextFrame);
+
+  for (let offset = 1; offset <= 5; offset++) {
+    loadFrame(nextFrame + offset);
+    loadFrame(nextFrame - offset);
+  }
+
+  requestDraw();
+}
+
+/* INITIAL FRAMES */
+
+loadFrame(0);
+
+for (let i = 1; i < 12; i++) {
+  loadFrame(i);
+}
+
+/* EVENT LISTENERS */
+
+window.addEventListener(
+  "scroll",
+  updateSequence,
+  { passive: true }
+);
+
+window.addEventListener(
+  "resize",
+  () => {
+    resizeCanvas();
+    updateSequence();
+  },
+  { passive: true }
+);
+
+resizeCanvas();
+updateSequence();
+
+/* PRELOAD REMAINING FRAMES */
+
+let preloadAt = 12;
+
+function preloadBatch() {
+
+  const stop = Math.min(
+    TOTAL_FRAMES,
+    preloadAt + 12
+  );
+
+  while (preloadAt < stop) {
+    loadFrame(preloadAt++);
+  }
+
+  if (preloadAt < TOTAL_FRAMES) {
+
+    if ("requestIdleCallback" in window) {
+
+      requestIdleCallback(preloadBatch, {
+        timeout: 250
+      });
+
+    } else {
+
+      setTimeout(preloadBatch, 90);
+
     }
   }
+}
 
-  copyButton?.addEventListener("click", copyEmail);
+if (!reducedMotion) {
 
-  // MAILTO: DO NOT BLOCK THE LINK
+  if ("requestIdleCallback" in window) {
 
-  const sendEmail = $("#sendEmail");
+    requestIdleCallback(preloadBatch, {
+      timeout: 350
+    });
 
-  sendEmail?.addEventListener("click", () => {
-    showToast(
-      "Opening your email app. If nothing opens, use Copy Email Address."
-    );
+  } else {
+
+    setTimeout(preloadBatch, 150);
+
+  }
+}
+
+/* =========================================
+   SECTION REVEAL ANIMATIONS
+========================================= */
+
+const revealItems = document.querySelectorAll(
+  ".reveal"
+);
+
+if (
+  reducedMotion ||
+  !("IntersectionObserver" in window)
+) {
+
+  revealItems.forEach((element) => {
+    element.classList.add("visible");
   });
 
-  // IMAGE LOADING WARNINGS
+} else {
 
-  $$(
-    ".hero-portrait, .rift-stage img, .racos-banner"
-  ).forEach(image => {
-    const reportMissing = () => {
-      console.warn(
-        "Missing portfolio image:",
-        image.getAttribute("src")
+  const observer = new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add("visible");
+
+          observer.unobserve(entry.target);
+
+        }
+      });
+
+    },
+    {
+      threshold: .12,
+      rootMargin: "0px 0px -35px 0px"
+    }
+  );
+
+  revealItems.forEach((element) => {
+    observer.observe(element);
+  });
+}
+
+/* =========================================
+   PROJECT IMAGE LOADING
+========================================= */
+
+document.querySelectorAll(
+  ".work-art img"
+).forEach((img) => {
+
+  const showImage = () => {
+
+    if (img.naturalWidth > 0) {
+
+      img.parentElement.classList.add(
+        "has-image"
       );
-    };
 
-    image.addEventListener("error", reportMissing);
-
-    if (image.complete && image.naturalWidth === 0) {
-      reportMissing();
     }
+  };
+
+  if (img.complete) {
+
+    showImage();
+
+  } else {
+
+    img.addEventListener(
+      "load",
+      showImage,
+      { once: true }
+    );
+
+    img.addEventListener(
+      "error",
+      () => {
+        img.remove();
+      },
+      { once: true }
+    );
+  }
+});
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+const menu = document.querySelector(
+  ".menu-toggle"
+);
+
+const nav = document.querySelector(".nav");
+
+menu.addEventListener("click", () => {
+
+  const open = nav.classList.toggle("open");
+
+  menu.setAttribute(
+    "aria-expanded",
+    String(open)
+  );
+
+});
+
+nav.querySelectorAll("a").forEach((link) => {
+
+  link.addEventListener("click", () => {
+
+    nav.classList.remove("open");
+
+    menu.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
   });
-})();
+
+});
+
+/* =========================================
+   COPYRIGHT
+========================================= */
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
